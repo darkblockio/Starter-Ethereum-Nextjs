@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import React, {useEffect, useState} from 'react'
-//import {shortenAddr} from '../utils/shortAddress'
+import React, { useEffect, useState } from 'react'
+import { shortenAddr } from '../utils/shortAddress'
 import Web3 from 'web3'
-//import logo from './MyLogo.png'
 
 const Header = () => {
   const [address, setAddress] = useState('')
@@ -28,9 +27,7 @@ const Header = () => {
 
     // Non-dapp browsers...
     else {
-      console.log(
-        'Non-Ethereum browser detected. You should consider trying MetaMask!'
-      )
+      console.log('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
 
     const accounts = await web3.eth.getAccounts()
@@ -83,15 +80,14 @@ const Header = () => {
   }, [])
 
   return (
-    <header
-      className="sticky top-0 z-30 flex items-center justify-center w-full h-20 px-4 border-b bg-primary border-secondary">
+    <header className="sticky top-0 z-30 flex items-center justify-center w-full h-20 px-4 border-b bg-primary border-secondary">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
           <div className="flex items-center"></div>
           <Link href="/">
             <img
               className="w-auto h-12 px-2 py-2 border rounded cursor-pointer border-terciary"
-              //src={logo}
+              src="/images/MyLogo.png"
               alt="Change your logo here"
             ></img>
           </Link>
@@ -103,8 +99,7 @@ const Header = () => {
               className="px-4 py-2 text-white border rounded bg-primary border-terciary hover:bg-terciary text-md"
               onClick={() => connect()}
             >
-              {/* {address && address !== '' ? shortenAddr(address : 'Connect Wallet'} */}
-              {address && address !== '' ? address : 'Connect Wallet'}
+              {address && address !== '' ? shortenAddr(address) : 'Connect Wallet'}
             </button>
           </div>
         </div>
