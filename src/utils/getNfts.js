@@ -50,3 +50,28 @@ export const getNFTsOwned = async (address, platform, offSet) => {
       }
     })
 }
+
+export const getNFTMetadata = async (contract, id, platform) => {
+  // platforms: Ethereum, Polygon, Avalanche, Solana, Tezos
+
+  return await fetch(
+    `${baseApi}/nft/metadata?platform=${platform}&contract=${contract}&token=${id}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      return {
+        nft: data.data,
+        loaded: true,
+        error: false,
+        errorMsg: null,
+      }
+    })
+    .catch((error) => {
+      return {
+        nft: null,
+        loaded: true,
+        error: true,
+        errorMsg: error,
+      }
+    })
+}
