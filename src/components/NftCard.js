@@ -1,15 +1,11 @@
 import React from 'react'
+import Link from 'next/link';
 
 const NftCard = ({ nft }) => {
   const { name, image, is_darkblocked, contract, token } = nft
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    // navigate(`details?contract=${contract}&tokenId=${token}`, { state: { nft } })
-  }
-
   return (
-    <button onClick={(e) => handleSubmit(e)}>
+    <Link href={`details/${contract}/${token}`}>
       {image ? (
         <div className="mb-8 text-center border border-gray-200 shadow-sm bg-secondary h-84 w-60 rounded-xl shadow-white hover:shadow-md hover:shadow-white">
           <div className="rounded-lg">
@@ -40,7 +36,7 @@ const NftCard = ({ nft }) => {
       ) : (
         <></>
       )}
-    </button>
+    </Link>
   )
 }
 

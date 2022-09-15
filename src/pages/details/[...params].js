@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { EthereumDarkblockWidget } from '@darkblock.io/eth-widget'
+import dynamic from 'next/dynamic'
 import Web3 from 'web3'
 import Header from '../../components/Header'
 import { validateImage } from '../../utils/validateImage'
 
+const EthereumDarkblockWidget = dynamic(
+  () =>
+    import('@darkblock.io/eth-widget').then((mod) => {
+      return mod.EthereumDarkblockWidget
+    }),
+  { ssr: false }
+)
+
 const NftDetailCard = () => {
-  const nft = window.history.state
-  const web3 = new Web3(window.web3.currentProvider)
   const [wallet, setWallet] = useState(null)
+  const [web3, setWeb3] = useState(null)
+  const [nft, setNft] = useState(null)
+
+  useEffect(() => {
+      setWeb3(new Web3(window.web3.currentProvider))
+      setNft(window.history.state)
+  }, [])
 
   const cb = (state) => {
     // console.log(state) // enable to log out unlockable process states
@@ -56,7 +69,7 @@ const NftDetailCard = () => {
     window.ethereum.on('disconnect', clearAccount)
 
     async function getAccount() {
-      if (window.ethereum) {
+      if (window.ethereum && web3?.eth) {
         const accounts = await web3.eth.getAccounts()
         if (accounts && accounts[0]) {
           setWallet(web3)
@@ -74,7 +87,7 @@ const NftDetailCard = () => {
         <div></div>
         <div className="flex flex-col">
           {
-            nft.nft && nft.nft.image ? (
+            nft && nft.nft && nft.nft.image ? (
             <img
               className="mx-0 border border-gray-200 rounded-md shadow-md"
               src={validateImage(nft.nft.image)}
@@ -83,29 +96,36 @@ const NftDetailCard = () => {
           }
         </div>
         <div className="flex flex-col w-2/3">
-          <div className="mb-2 font-sans text-4xl font-bold">{nft.nft.name}</div>
-          <div>{nft.nft.description}</div>
-          <div>
-            {wallet && (
-              <EthereumDarkblockWidget
-                contractAddress={nft.nft.contract}
-                tokenId={nft.nft.token}
-                w3={wallet}
-                cb={cb} // Optional
-                config={config}
-              />
-            )}
+          {
+            nft && nft.nft && (
+              <>
+              <div className="mb-2 font-sans text-4xl font-bold">{nft.nft.name}</div>
+              <div>{nft.nft.description}</div>
+              <div>
+                {wallet && (
+                  <EthereumDarkblockWidget
+                    contractAddress={nft.nft.contract}
+                    tokenId={nft.nft.token}
+                    w3={wallet}
+                    cb={cb} // Optional
+                    config={config}
+                  />
+                )}
 
-            {!wallet && (
-              <EthereumDarkblockWidget
-                contractAddress={nft.nft.contract}
-                tokenId={nft.nft.token}
-                w3={null}
-                cb={cb} // Optional
-                config={config}
-              />
-            )}
-          </div>
+                {!wallet && (
+                  <EthereumDarkblockWidget
+                    contractAddress={nft.nft.contract}
+                    tokenId={nft.nft.token}
+                    w3={null}
+                    cb={cb} // Optional
+                    config={config}
+                  />
+                )}
+              </div>
+              </>
+
+            )
+          }
         </div>
       </div>
     </div>

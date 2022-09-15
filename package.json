@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@darkblock.io/eth-widget": "^0.2.12",
     "next": "12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

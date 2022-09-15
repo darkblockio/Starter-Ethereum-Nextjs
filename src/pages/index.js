@@ -17,7 +17,6 @@ export default function Home() {
   const [HasMoreMyNfts, setHasMoreMyNfts] = useState(true)
   const [showNfts, setShowNfts] = useState('created')
   const [web3, setWeb3] = useState(null)
-  let w3 = undefined;
 
   useEffect(() => {
       setWeb3(new Web3(window.web3.currentProvider))
