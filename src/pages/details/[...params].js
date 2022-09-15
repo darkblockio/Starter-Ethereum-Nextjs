@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic'
 import Web3 from 'web3'
 import Header from '../../components/Header'
 import { validateImage } from '../../utils/validateImage'
+import { useRouter } from 'next/router'
+import { getNFTMetadata } from '../../utils/getNfts'
 
 const EthereumDarkblockWidget = dynamic(
   () =>
@@ -12,7 +14,27 @@ const EthereumDarkblockWidget = dynamic(
   { ssr: false }
 )
 
+const cb = (state) => {
+  // console.log(state) // enable to log out unlockable process states
+}
+
+const config = {
+  customCssClass: '', // pass here a class name you plan to use
+  debug: false, // debug flag to console.log some variables
+  imgViewer: {
+    // image viewer control parameters
+    showRotationControl: true,
+    autoHideControls: true,
+    controlsFadeDelay: true,
+  },
+}
+
+const platform = 'Ethereum'
+
 const NftDetailCard = () => {
+  const router = useRouter()
+  const contract = router.query.params ? router.query.params[0] : null
+  const id       = router.query.params ? router.query.params[1] : null
   const [wallet, setWallet] = useState(null)
   const [web3, setWeb3] = useState(null)
   const [nft, setNft] = useState(null)
@@ -22,20 +44,16 @@ const NftDetailCard = () => {
       setNft(window.history.state)
   }, [])
 
-  const cb = (state) => {
-    // console.log(state) // enable to log out unlockable process states
-  }
+  useEffect(() => {
+    if (id && contract) {
+      // const platformParam = network !== 'rinkeby' ? '' : '-devnet'
+      const platformParam = ''
 
-  const config = {
-    customCssClass: '', // pass here a class name you plan to use
-    debug: false, // debug flag to console.log some variables
-    imgViewer: {
-      // image viewer control parameters
-      showRotationControl: true,
-      autoHideControls: true,
-      controlsFadeDelay: true,
-    },
-  }
+      getNFTMetadata(contract, id, `${platform}${platformParam}`).then((data) => {
+        setNft(data.nft)
+      })
+    }
+  }, [id, contract])
 
   useEffect(() => {
     const accountWasChanged = (accounts) => {
@@ -87,25 +105,25 @@ const NftDetailCard = () => {
         <div></div>
         <div className="flex flex-col">
           {
-            nft && nft.nft && nft.nft.image ? (
+            nft && nft.image ? (
             <img
               className="mx-0 border border-gray-200 rounded-md shadow-md"
-              src={validateImage(nft.nft.image)}
+              src={validateImage(nft.image)}
               alt="NFT" />
             ) : <></>
           }
         </div>
         <div className="flex flex-col w-2/3">
           {
-            nft && nft.nft && (
+            nft && (
               <>
-              <div className="mb-2 font-sans text-4xl font-bold">{nft.nft.name}</div>
-              <div>{nft.nft.description}</div>
+              <div className="mb-2 font-sans text-4xl font-bold">{nft.name}</div>
+              <div>{nft.description}</div>
               <div>
                 {wallet && (
                   <EthereumDarkblockWidget
-                    contractAddress={nft.nft.contract}
-                    tokenId={nft.nft.token}
+                    contractAddress={nft.contract}
+                    tokenId={nft.token}
                     w3={wallet}
                     cb={cb} // Optional
                     config={config}
@@ -114,8 +132,8 @@ const NftDetailCard = () => {
 
                 {!wallet && (
                   <EthereumDarkblockWidget
-                    contractAddress={nft.nft.contract}
-                    tokenId={nft.nft.token}
+                    contractAddress={nft.contract}
+                    tokenId={nft.token}
                     w3={null}
                     cb={cb} // Optional
                     config={config}
