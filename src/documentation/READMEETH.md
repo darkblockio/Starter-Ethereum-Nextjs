@@ -20,6 +20,7 @@ yarn create next-app
 pnpm create next-app
 ```
 
+
 </ol>
 <hr>
 <h2>How do you run your site locally?</h2>
@@ -211,8 +212,8 @@ exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
 }
 ```
 
-<h3>Create a file in the root of the project <strong>.env.local</strong> and put the following code:</h3>
-NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS=0x3673De9F76775a6e6224442ca6542Fb99Bb00c61 //this is the default address with NFTs you want to see as a gallery
+<h3>Create a file in the root of the project <strong>.env</strong> and put the following code:</h3>
+REACT_APP_WALLET_ADDRESS=YourAPIKeyHere //this is the default address with NFTs you want to see as a gallery
 
 <h3>Restart your app and run</h3>
 <br>
