@@ -75,3 +75,27 @@ export const getNFTMetadata = async (contract, id, platform) => {
       }
     })
 }
+
+
+export const getNFTData = async (contract, tokenId) => {
+  return await fetch(
+    `${baseApi}/nft/metadata?platform=Ethereum&contract=${contract}&token=${tokenId}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      return {
+        nft: data.data,
+        loaded: true,
+        error: false,
+        errorMsg: null,
+      }
+    })
+    .catch((error) => {
+      return {
+        nft: null,
+        loaded: true,
+        error: true,
+        errorMsg: error,
+      }
+    })
+}
