@@ -183,13 +183,7 @@ const NftDetailCard = () => {
                       </div>
                     </div>
                     <p className='border border-gray-100 rounded text-gray-700 pb-8 font-medium '>{shortenAddr(nftData.owner_name)}</p>
-                    {/* <a
-                      className='pb-8 font-medium underline truncate'
-                      href={`https://app.darkblock.io/platform/${shortPlatforms[platform]}/${owner}`}
-                      rel='noreferrer'
-                      target='_blank'
-                    >
-                    </a> */}
+               
 
                     <div className='flex pb-2 mt-2'>
                       <h2 className='font-bold '>Created by</h2>
@@ -202,10 +196,7 @@ const NftDetailCard = () => {
                         <p className='border border-gray-100 rounded text-gray-700 pb-8 font-medium'>{shortenAddr(nftData.creator_address)}</p>
                     )}
                   </div>
-                  {/* <h2>Created By:</h2>
-                  <li>{shortenAddr(nftData.creator_address)}</li>
-                  <h4>Owned By:</h4>
-                  <li>{shortenAddr(nftData.owner_address)}</li> */}
+                  
                 </div>
               </div>
               <div>
@@ -231,14 +222,7 @@ const NftDetailCard = () => {
                       <div className='py-2 text-sm font-semibold text-gray-500'>
                         <h3>Token ID</h3>
                       </div>
-                      {/* {/* <a
-                <a>
-                className="py-2 text-right underline truncate text-ellipsis"
-                href={tokenIdRedirects[platform]}
-                rel="noreferrer"
-                target="_blank"
-              > 
-              </a> */}
+                
                       <p className='py-2 text-right underline truncate text-ellipsis'>
                         {shortenAddr(nftData.token)}
                       </p>
@@ -249,13 +233,7 @@ const NftDetailCard = () => {
                       <div className='py-2 text-sm font-semibold text-gray-500'>
                         <h3>Contract Address</h3>
                       </div>
-                      {/* <a
-                className="py-2 text-right underline truncate"
-                href={contractAddresRedirects[platform]}
-                rel="noreferrer"
-                target="_blank"
-              >
-              </a> */}
+                  
                       <p className='py-2 text-right underline truncate'>
                         {shortenAddr(contract)}
                       </p>
