@@ -26,7 +26,6 @@ const NftDetailCard = () => {
 
   const [nftData, setNftData] = useState(null)
   const [wallet, setWallet] = useState(null)
- 
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
