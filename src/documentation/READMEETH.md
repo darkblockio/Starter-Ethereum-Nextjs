@@ -1,29 +1,26 @@
-<h1>Gatsby Ethereum</h1>
+<h1>Next Ethereum</h1>
 <h3>Hey Newbie &#128075;</h3>
 <h4>Open this in preview mode for the best experience</h4>
 <hr>
 <h2>Intro:</h2>
-<h3>We are going to build a simple web app using Gatsby and our Ethereum widget.</h3>
+<h3>We are going to build a simple web app using Next and our Ethereum widget.</h3>
 <h3>
-<a href="https://www.gatsbyjs.com/docs/tutorial/part-1/">Check out the gatsby tutorial here</a>and follow the open-source documentation to create and deploy your site along with the documentation we have provided.</h3><hr>
-<h2>Setting up Gatsby to run your site</h2><br>
+<a href="https://nextjs.org/docs">Check out the Next documents here</a>and follow the open-source documentation to create and deploy your site along with the documentation we have provided.</h3><hr>
+<h2>Setting up Next to run your site</h2><br>
 <ol>
 <li>Go to your desktop and create a folder where you want your project to live. Open a new terminal, GitBash Here, or cmd.</li><br>
 <li>Run the following code in your terminal:</li>
 <br>
 
 ```
-gatsby new
+npx create-next-app@latest
+# or
+yarn create next-app
+# or
+pnpm create next-app
 ```
 
-<br><li>When prompted "What would you like to call your site?" ~Enter the name you
-would like your site to be named.</li><br>
 
-<li>When prompted "Will you be using JavaScript or Typescript?"   ~Choose your language of choice.</li><br>
-<li>When prompted "Will you be using CMS?"                                 ~Select "No".</li><br>
-<li>When prompted "Would you like to install Styling System?"      ~Select "No".</li><br>
-<li>When prompted "Would you like to install Additional Features with other plugins?"     ~Use the arrow and enter keys to select "Done".</li><br>
-<li>When prompted "Shall we do this?"                                             ~Enter "Y" for Yes. This creates the Gatsby site.</li>
 </ol>
 <hr>
 <h2>How do you run your site locally?</h2>
@@ -33,22 +30,22 @@ would like your site to be named.</li><br>
 <br>
 
 ```
-cd my-gatsby-app
+cd my-next-app
 ```
 
 <li>Run the command: </li><br>
 
 ```
-gatsby develop
+yarn dev
 ```
 
 or
 
 ```
-npm run develop
+npm run dev
 ```
 
-<li>Go to your browser of choice and enter http:/localhost:8000 <a href="http://localhost:8000">Or click here</a></li>
+<li>Go to your browser of choice and enter http:/localhost:8000 <a href="http://localhost:3000">Or click here</a></li>
 </ol>
 <hr>
 <h2>Set up your React component Using Darkblock with Ethereum Wallet:</h2>
@@ -185,7 +182,7 @@ yarn add --dev process crypto-browserify stream-browserify assert stream-http ht
 npm install --save-dev crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url buffer process path path-browserify dotenv-webpack
 ```
 
-<h3>Create a file in the root of the project <strong>gatsby-node.js</strong> and put the following code:</h3>
+<h3>Create a file in the root of the project and put the following code:</h3>
 
 ```
 const webpack = require('webpack')
@@ -216,13 +213,13 @@ exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
 ```
 
 <h3>Create a file in the root of the project <strong>.env</strong> and put the following code:</h3>
-REACT_APP_WALLET_ADDRESS=0x3673De9F76775a6e6224442ca6542Fb99Bb00c61 //this is the default address with NFTs you want to see as a gallery
+REACT_APP_WALLET_ADDRESS=YourAPIKeyHere //this is the default address with NFTs you want to see as a gallery
 
 <h3>Restart your app and run</h3>
 <br>
 
 ```
-gatsby develop
+npm run dev
 ```
 
 <h3>Refresh your page and you will need to log into your Ethereum wallet.</h3>
@@ -234,4 +231,4 @@ gatsby develop
 
 <img src="./EthereumAuth.png"><br>
 
-<h3>The whole code for this guide is in <a href="https://github.com/darkblockio/darkblock-gatsby/tree/docs">Github</a></h3>
+<h3>The whole code for this guide is in <a href="https://github.com/darkblockio/Starter-Ethereum-Nextjs">Github</a></h3>

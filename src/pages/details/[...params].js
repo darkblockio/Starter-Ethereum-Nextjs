@@ -36,18 +36,6 @@ const NftDetailCard = () => {
     }
   }, [])
 
-  //   const contracts = nftData.contract
-  //   const token = nftData.token
-  //   const owner = nftData.owner_address
-  //   const creators = nftData.all_creators
-  //   const traits = nftData.traits
-
-  //  const tokenIdRedirects = {
-  //    Ethereum: `https://opensea.io/assets/ethereum/${contracts}/${token}`,
-  //  }
-  //  const contractAddresRedirects = {
-  //    Ethereum: `https://etherscan.io/address/${contracts}`,
-  //  }
 
   const cb = state => {
     console.log(state) // log out unlockable process states
@@ -179,10 +167,10 @@ const NftDetailCard = () => {
                     <div className='flex pb-2 mt-2'>
                       <h2 className='font-bold'>Owned by</h2>
                       <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 border border-gray-100 bg-gray-200 rounded'>
-                        {1}
+                      {1}
                       </div>
                     </div>
-                    <p className='border border-gray-100 rounded text-gray-700 pb-8 font-medium '>{shortenAddr(nftData.owner_name)}</p>
+                    <p className='border border-gray-100 rounded text-center text-gray-700 p-3 font-medium '>{shortenAddr(nftData.owner_address)}</p>
                
 
                     <div className='flex pb-2 mt-2'>
@@ -191,9 +179,9 @@ const NftDetailCard = () => {
                         {nftData.creators?.length ? nftData.creators.length : 0}
                       </div>
                     </div>
-                    {nftData.creators && (
+                    {nftData.creator_address && (
                     
-                        <p className='border border-gray-100 rounded text-gray-700 pb-8 font-medium'>{shortenAddr(nftData.creator_address)}</p>
+                        <p className='border border-gray-100 text-center rounded text-gray-700 p-3 font-medium'>{shortenAddr(nftData.creator_address)}</p>
                     )}
                   </div>
                   
