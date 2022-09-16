@@ -13,33 +13,31 @@ export default function Home() {
   const [offset, setOffset] = useState(0)
   const [offsetMyNfts, setOffsetMyNfts] = useState(0)
   const [address, setAddress] = useState('')
-  const [HasMoreNfts, setHasMoreNfts] = useState(true)
-  const [HasMoreMyNfts, setHasMoreMyNfts] = useState(true)
+  const [HasMoreNfts, setHasMoreNfts] = useState(false)
+  const [HasMoreMyNfts, setHasMoreMyNfts] = useState(false)
   const [showNfts, setShowNfts] = useState('created')
   const [web3, setWeb3] = useState(null)
 
   useEffect(() => {
-      setWeb3(new Web3(window.web3.currentProvider))
+    setWeb3(new Web3(window.web3.currentProvider))
   }, [])
 
   const getData = async () => {
-    await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then(
-      (nfts) => {
-        let allNfts = data.concat(nfts.nfts.data)
-        setData(allNfts)
-        setOffset(nfts.nfts.next_offset)
-        setHasMoreNfts(nfts.nfts.has_more)
-      }
-    )
+    await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then((nfts) => {
+      let allNfts = data.concat(nfts.nfts.data)
+      setData(allNfts)
+      setOffset(nfts.nfts.next_offset)
+      setHasMoreNfts(nfts.nfts.has_more)
+    })
   }
 
   const getMyNFTs = async (address, loadMore) => {
     await getNFTsOwned(address, platform, loadMore ? offsetMyNfts : 0).then((nfts) => {
       let allNfts = []
       if (loadMore) {
-        allNfts = myNfts.concat(nfts.nfts.data)
+        allNfts = myNfts.concat(nfts.nfts.filteredData)
       } else {
-        allNfts = nfts.nfts.data
+        allNfts = nfts.nfts.filteredData
       }
       setMyNfts(allNfts)
       setOffsetMyNfts(nfts.nfts.next_offset)
@@ -122,9 +120,7 @@ export default function Home() {
             </span>
             <span // eslint-disable-line
               className={`hover:border-b-2 bg-secondary text-white px-4 pb-2 rounded cursor-pointer ${
-                showNfts === 'darkblockeds'
-                  ? 'border-b-2 border-black'
-                  : 'text-gray-300'
+                showNfts === 'darkblockeds' ? 'border-b-2 border-black' : 'text-gray-300'
               }`}
               onClick={() => setShowNfts('darkblockeds')}
             >
@@ -152,13 +148,12 @@ export default function Home() {
             </button>
           )}
           {/* {(myNfts?.length === 0 || myNfts[0] === undefined) && */}
-          {(myNfts?.length === 0 ) &&
-            showNfts === 'darkblockeds' && (
-              <div className=" text-white text-xl w-screen text-center m-auto ">
-                Oops, looks like you don't have any matching NFTs in this wallet.
-              </div>
-            )}
-          {HasMoreMyNfts && showNfts === 'darkblockeds' && (
+          {myNfts?.length === 0 && showNfts === 'darkblockeds' && (
+            <div className=" text-white text-xl w-screen text-center m-auto ">
+              Oops, looks like you don't have any matching NFTs in this wallet.
+            </div>
+          )}
+          {HasMoreMyNfts && myNfts.length !== 0 && showNfts === 'darkblockeds' && (
             <button
               onClick={() => getMyNFTs(address, true)}
               className="flex justify-center p-2 m-auto font-semibold bg-white bg-gray-200 rounded "
