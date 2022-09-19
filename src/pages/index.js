@@ -1,9 +1,10 @@
 import Header from '../components/Header'
 import { useState, useEffect } from 'react'
-import { getNFTs, getNFTsOwned } from '../utils/getNfts'
+import { getNFTMetadata, getNFTs, getNFTsOwned } from '../utils/getNfts'
 import { shortenAddr } from '../utils/shortAddress'
 import NftCard from '../components/NftCard'
 import Web3 from 'web3'
+import { collection } from '../utils/collection'
 
 const platform = 'Ethereum'
 
@@ -17,17 +18,26 @@ export default function Home() {
   const [HasMoreMyNfts, setHasMoreMyNfts] = useState(false)
   const [showNfts, setShowNfts] = useState('created')
   const [web3, setWeb3] = useState(null)
+  const [arrayOfNfts, setArrayOfNfts] = useState([])
 
   useEffect(() => {
     setWeb3(new Web3(window.web3.currentProvider))
   }, [])
 
   const getData = async () => {
-    await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then((nfts) => {
-      let allNfts = data.concat(nfts.nfts.data)
-      setData(allNfts)
-      setOffset(nfts.nfts.next_offset)
-      setHasMoreNfts(nfts.nfts.has_more)
+    // await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then((nfts) => {
+    //   let allNfts = data.concat(nfts.nfts.data)
+    //   setData(allNfts)
+    //   setOffset(nfts.nfts.next_offset)
+    //   setHasMoreNfts(nfts.nfts.has_more)
+    // })
+  }
+
+  const getObjectData = async () => {
+    collection.map(async (el, i) => {
+      await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
+        setArrayOfNfts((state) => [...state, nft])
+      })
     })
   }
 
@@ -90,6 +100,10 @@ export default function Home() {
   }, [web3])
 
   useEffect(() => {
+    getObjectData()
+  }, [])
+
+  useEffect(() => {
     if (address && address.length > 0) {
       setMyNfts([])
       setOffsetMyNfts(0)
@@ -138,6 +152,7 @@ export default function Home() {
               myNfts.length > 0 &&
               myNfts[0] !== undefined &&
               myNfts.map((nft, i) => <NftCard key={i} nft={nft} />)}
+            {arrayOfNfts.map((nft, i) => i < collection.length && <NftCard key={i} nft={nft.nft} />)}
           </div>
           {HasMoreNfts && showNfts === 'created' && (
             <button
