@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Web3 from 'web3'
 import Header from '../../components/Header'
-import { EthereumDarkblockWidget } from '@darkblock.io/eth-widget'
 import { getNFTMetadata } from '../../utils/getNfts'
 import { validateImage } from '../../utils/validateImage'
 import { dateTimeFormat } from '../../utils/dateFormatter'
 import { shortenAddr } from '../../utils/shortAddress'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
+const EthereumDarkblockWidget = dynamic(
+  () =>
+    import('@darkblock.io/eth-widget').then((mod) => {
+      return mod.EthereumDarkblockWidget
+    }),
+  { ssr: false }
+)
 
 const countAttribs = nft => {
   let count = 1
@@ -143,14 +151,14 @@ const NftDetailCard = () => {
               <div className='flex flex-col pb-2'>
                 <div className='flex flex-row mb-2'>
                   <h2 className='font-bold'>Traits:</h2>
-                  <div className='px-2 py-1 ml-2 text-xs font-semibold rounded bg-gray-200 text-gray-800'>
+                  <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-800 bg-gray-200 rounded'>
                     {nftData.traits?.length ? nftData.traits.length : 0}
                   </div>
                 </div>
                 <div className='flex-col'>
                   {nftData.traits?.map(i => {
                     return (
-                      <div className='flex h-16 text-center border border-gray-200 rounded-md'>
+                      <div className='flex h-16 text-center border border-gray-200 rounded-md' key={i.value}>
                         <div className='m-auto'>
                           <p className='text-sm font-bold text-gray-500 uppercase'>
                             {i.name}
@@ -165,12 +173,12 @@ const NftDetailCard = () => {
                   <div>
                     <div className='flex pb-2 mt-2'>
                       <h2 className='font-bold'>Owned by</h2>
-                      <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 border border-gray-100 bg-gray-200 rounded'>
+                      <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 border border-gray-100 rounded'>
                       {1}
                       </div>
                     </div>
-                    <p className='border border-gray-100 rounded text-center text-gray-700 p-3 font-medium '>{shortenAddr(nftData.owner_address)}</p>
-               
+                    <p className='p-3 font-medium text-center text-gray-700 border border-gray-100 rounded '>{shortenAddr(nftData.owner_address)}</p>
+
 
                     <div className='flex pb-2 mt-2'>
                       <h2 className='font-bold '>Created by</h2>
@@ -179,11 +187,11 @@ const NftDetailCard = () => {
                       </div>
                     </div>
                     {nftData.creator_address && (
-                    
-                        <p className='border border-gray-100 text-center rounded text-gray-700 p-3 font-medium'>{shortenAddr(nftData.creator_address)}</p>
+
+                        <p className='p-3 font-medium text-center text-gray-700 border border-gray-100 rounded'>{shortenAddr(nftData.creator_address)}</p>
                     )}
                   </div>
-                  
+
                 </div>
               </div>
               <div>
@@ -193,7 +201,7 @@ const NftDetailCard = () => {
                     {countAttribs(nftData)}
                   </div>
                 </div>
-                <div className='grid grid-cols-2 text-left border border-gray-200 rounded-md p-2'>
+                <div className='grid grid-cols-2 p-2 text-left border border-gray-200 rounded-md'>
                   {platform && (
                     <>
                       <div className='py-2 text-sm font-semibold text-gray-500'>
@@ -209,7 +217,7 @@ const NftDetailCard = () => {
                       <div className='py-2 text-sm font-semibold text-gray-500'>
                         <h3>Token ID</h3>
                       </div>
-                
+
                       <p className='py-2 text-right underline truncate text-ellipsis'>
                         {shortenAddr(nftData.token)}
                       </p>
@@ -220,7 +228,7 @@ const NftDetailCard = () => {
                       <div className='py-2 text-sm font-semibold text-gray-500'>
                         <h3>Contract Address</h3>
                       </div>
-                  
+
                       <p className='py-2 text-right underline truncate'>
                         {shortenAddr(contract)}
                       </p>
