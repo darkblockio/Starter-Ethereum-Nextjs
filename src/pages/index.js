@@ -100,7 +100,7 @@ export default function Home() {
   }, [address])
 
   return (
-    <div className="layout bg-primary">
+    <div className="h-full layout bg-primary">
       <Header address={address} />
       <div>
         <>
@@ -149,8 +149,8 @@ export default function Home() {
           )}
           {/* {(myNfts?.length === 0 || myNfts[0] === undefined) && */}
           {myNfts?.length === 0 && showNfts === 'darkblockeds' && (
-            <div className=" text-white text-xl w-screen text-center m-auto ">
-              Oops, looks like you don't have any matching NFTs in this wallet.
+            <div className="w-screen h-screen m-auto text-xl text-center text-white">
+              {`Oops, looks like you don't have any matching NFTs in this wallet.`}
             </div>
           )}
           {HasMoreMyNfts && myNfts.length !== 0 && showNfts === 'darkblockeds' && (
