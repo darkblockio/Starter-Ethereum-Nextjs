@@ -152,7 +152,8 @@ export default function Home() {
               myNfts.length > 0 &&
               myNfts[0] !== undefined &&
               myNfts.map((nft, i) => <NftCard key={i} nft={nft} />)}
-            {arrayOfNfts.map((nft, i) => i < collection.length && <NftCard key={i} nft={nft.nft} />)}
+            {showNfts === 'created' &&
+              arrayOfNfts.map((nft, i) => i < collection.length && <NftCard key={i} nft={nft.nft} />)}
           </div>
           {HasMoreNfts && showNfts === 'created' && (
             <button
