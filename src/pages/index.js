@@ -35,9 +35,11 @@ export default function Home() {
 
   const getObjectData = async () => {
     collection.map(async (el, i) => {
-      await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
-        setArrayOfNfts((state) => [...state, nft])
-      })
+      setTimeout(async () => {
+        await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
+          setArrayOfNfts((state) => [...state, nft])
+        })
+      }, 1000)
     })
   }
 
@@ -95,7 +97,7 @@ export default function Home() {
       }
     }
     getAccount()
-    getData()
+    //getData()
     // getAddress()
   }, [web3])
 
@@ -169,14 +171,14 @@ export default function Home() {
               Oops, looks like you don't have any matching NFTs in this wallet.
             </div>
           )}
-          {HasMoreMyNfts && myNfts.length !== 0 && showNfts === 'darkblockeds' && (
+          {/* {HasMoreMyNfts && myNfts.length !== 0 && showNfts === 'darkblockeds' && (
             <button
               onClick={() => getMyNFTs(address, true)}
               className="flex justify-center p-2 m-auto font-semibold bg-white bg-gray-200 rounded "
             >
               Load More
             </button>
-          )}
+          )} */}
         </>
       </div>
     </div>
