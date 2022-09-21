@@ -1,7 +1,6 @@
 import Header from '../components/Header'
 import { useState, useEffect, useCallback } from 'react'
 import { getNFTMetadata, getNFTs, getNFTsOwned } from '../utils/getNfts'
-import { shortenAddr } from '../utils/shortAddress'
 import NftCard from '../components/NftCard'
 import Web3 from 'web3'
 import { collection } from '../utils/collection'
@@ -19,55 +18,62 @@ export default function Home() {
   const [showNfts, setShowNfts] = useState('created')
   const [web3, setWeb3] = useState(null)
   const [arrayOfNfts, setArrayOfNfts] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     setWeb3(new Web3(window.web3.currentProvider))
   }, [])
 
   const getData = async () => {
-    // await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then((nfts) => {
-    //   let allNfts = data.concat(nfts.nfts.data)
-    //   setData(allNfts)
-    //   setOffset(nfts.nfts.next_offset)
-    //   setHasMoreNfts(nfts.nfts.has_more)
-    // })
+    await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then((nfts) => {
+      let allNfts = data.concat(nfts.nfts.data)
+      setData(allNfts)
+      setOffset(nfts.nfts.next_offset)
+      setHasMoreNfts(nfts.nfts.has_more)
+    })
   }
 
   const getObjectData = useCallback(async () => {
     async function getDataCollection() {
       const arrOfPromises = collection.map( (item, i) => {
-          return new Promise( (resolve, reject) => {
+          return new Promise( () => {
             setTimeout(() => {
               getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((data) => {
                 const {name,contract,creator_address,token,creator_name,image,is_darkblocked } = data.nft
-                const obj = { name,contract,creator_address,token,creator_name,image,is_darkblocked }
+                const obj = { nft: {name,contract,creator_address,token,creator_name,image,is_darkblocked } }
                 console.log(obj)
+                setArrayOfNfts((state) => [...state, obj])
               })
             }, 1500);
           })
-        }
-      )
-      return Promise.all(arrOfPromises);
+      })
+      return Promise.all(arrOfPromises)
     }
+    getDataCollection()
+  }, [])
 
-    getDataCollection().then((data) => {
-      console.log('collection: ', data)
-      // setArrayOfNfts(data)
-    })
-    // collection.map(async (el, i) => {
-    //   setTimeout(async () => {
-    //     await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
-    //       console.log(nft)
-    //       setArrayOfNfts((state) => [...state, nft])
-    //     })
-    //   }, 2000)
-    // })
-  },[])
+
+  // const getObjectData = async () => {
+  //   collection.map(async (el, i) => {
+  //     await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
+  //       setArrayOfNfts((state) => [...state, nft])
+  //     })
+  //     setIsLoaded(true)
+  //   })
+  //   collection.map(async (el, i) => {
+  //     setTimeout(async () => {
+  //       await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
+  //         console.log(nft)
+  //         setArrayOfNfts((state) => [...state, nft])
+  //       })
+  //     }, 2000)
+  //   })
+  // }
 
   const getMyNFTs = async (address, loadMore) => {
     await getNFTsOwned(address, platform, loadMore ? offsetMyNfts : 0).then((nfts) => {
       let allNfts = []
-      if (loadMore) {
+      if (loadMore && process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
         allNfts = myNfts.concat(nfts.nfts.filteredData)
       } else {
         allNfts = nfts.nfts.filteredData
@@ -118,13 +124,11 @@ export default function Home() {
       }
     }
     getAccount()
-    //getData()
     // getAddress()
   }, [web3])
 
   useEffect(() => {
-    console.log('render many times')
-    getObjectData()
+    process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true' ? getData() : getObjectData()
   }, [])
 
   useEffect(() => {
@@ -138,15 +142,10 @@ export default function Home() {
   }, [address])
 
   return (
-    <div className="layout bg-primary">
+    <div className="h-full layout bg-primary">
       <Header address={address} />
       <div>
         <>
-          <div className="pb-10 ml-32 text-2xl font-bold text-white">
-            {/* {address === ''
-              ? `Wallet: ${shortenAddr(process.env.REACT_APP_WALLET_ADDRESS)}`
-              : `Wallet: ${shortenAddr(address)}`} */}
-          </div>
           <div>
             <span // eslint-disable-line
               className={`hover:border-b-2 ml-32 mt-32 bg-secondary text-white pb-2 px-4 rounded mr-8 cursor-pointer ${
@@ -192,18 +191,10 @@ export default function Home() {
           )}
           {/* {(myNfts?.length === 0 || myNfts[0] === undefined) && */}
           {myNfts?.length === 0 && showNfts === 'darkblockeds' && (
-            <div className="w-screen m-auto text-xl text-center text-white ">
-              Oops, looks like you don't have any matching NFTs in this wallet.
+            <div className="w-screen h-screen m-auto text-xl text-center text-white">
+              {`Oops, looks like you don't have any matching NFTs in this wallet.`}
             </div>
           )}
-          {/* {HasMoreMyNfts && myNfts.length !== 0 && showNfts === 'darkblockeds' && (
-            <button
-              onClick={() => getMyNFTs(address, true)}
-              className="flex justify-center p-2 m-auto font-semibold bg-white bg-gray-200 rounded "
-            >
-              Load More
-            </button>
-          )} */}
         </>
       </div>
     </div>

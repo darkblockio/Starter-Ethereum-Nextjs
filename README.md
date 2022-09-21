@@ -10,6 +10,14 @@ npm run dev
 yarn dev
 ```
 
+You will need a .env.local file in the root of the project. Add the public wallet address like this:
+
+```
+NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS=0x3673De9F76775a6e6224442ca6542Fb99Bb00c61
+```
+//this is the default address with NFTs you want to see as a gallery
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
