@@ -80,7 +80,7 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-center w-full h-20 px-4 border-b bg-primary border-secondary">
+    <header className="sticky top-0 z-50 absolute flex items-center justify-center h-20 px-8 border-b bg-primary border-secondary">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
           <div className="flex items-center"></div>
