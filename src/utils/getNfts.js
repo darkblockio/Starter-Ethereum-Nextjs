@@ -1,3 +1,5 @@
+import { collection } from './collection'
+
 const baseApi = process.env.NEXT_PUBLIC_BASE_API ? process.env.NEXT_PUBLIC_BASE_API : 'https://api.darkblock.io/v1/'
 
 export const getNFTs = async (address, platform, offset = 0) => {
@@ -32,9 +34,21 @@ export const getNFTsOwned = async (address, platform, offSet) => {
   )
     .then((response) => response.json())
     .then((data) => {
-      const filterData = data.data.filter((item) => {
-        return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase()
-      })
+      let filterData
+      if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
+        filterData = data.data.filter((item) => {
+          return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase()
+        })
+      } else {
+        filterData = []
+        collection.forEach((nft) => {
+          data.data.filter((item) => {
+            if (item.contract === nft.contract && item.token === nft.id) {
+              filterData.push(item)
+            }
+          })
+        })
+      }
 
       data.filteredData = filterData
 
@@ -59,6 +73,27 @@ export const getNFTMetadata = async (contract, id, platform) => {
   // platforms: Ethereum, Polygon, Avalanche, Solana, Tezos
 
   return await fetch(`${baseApi}/nft/metadata?platform=${platform}&contract=${contract}&token=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      return {
+        nft: data.data,
+        loaded: true,
+        error: false,
+        errorMsg: null,
+      }
+    })
+    .catch((error) => {
+      return {
+        nft: null,
+        loaded: true,
+        error: true,
+        errorMsg: error,
+      }
+    })
+}
+
+export const getNFTData = async (contract, tokenId) => {
+  return await fetch(`${baseApi}/nft/metadata?platform=Ethereum&contract=${contract}&token=${tokenId}`)
     .then((response) => response.json())
     .then((data) => {
       return {

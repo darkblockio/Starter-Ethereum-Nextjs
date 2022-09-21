@@ -16,7 +16,7 @@ const EthereumDarkblockWidget = dynamic(
   { ssr: false }
 )
 
-const countAttribs = nft => {
+const countAttribs = (nft) => {
   let count = 1
   if (nft.token) count++
   if (nft.contract) count++
@@ -37,13 +37,13 @@ const NftDetailCard = () => {
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
-      getNFTMetadata(contract, id, `${platform}`).then(data => {
+      getNFTMetadata(contract, id, `${platform}`).then((data) => {
         setNftData(data.nft)
       })
     }
   }, [])
 
-  const cb = state => {
+  const cb = (state) => {
     console.log(state) // log out unlockable process states
   }
 
@@ -54,14 +54,14 @@ const NftDetailCard = () => {
       // image viewer control parameters
       showRotationControl: true,
       autoHideControls: true,
-      controlsFadeDelay: true
-    }
+      controlsFadeDelay: true,
+    },
   }
 
   useEffect(() => {
     const web3 = new Web3(window.web3.currentProvider)
 
-    const accountWasChanged = accounts => {
+    const accountWasChanged = (accounts) => {
       setWallet(null)
 
       setTimeout(() => {
@@ -91,7 +91,7 @@ const NftDetailCard = () => {
     window.ethereum.on('connect', getAndSetAccount)
     window.ethereum.on('disconnect', clearAccount)
 
-    async function getAccount () {
+    async function getAccount() {
       if (window.ethereum) {
         const accounts = await web3.eth.getAccounts()
         if (accounts && accounts[0]) {
