@@ -27,7 +27,6 @@ export const getNFTs = async (address, platform, offset = 0) => {
 }
 
 export const getNFTsOwned = async (address, platform, offSet) => {
-  // platforms: Ethereum, Polygon, Avalanche, Solana, Tezos
   const pageSize = 48
   return await fetch(
     `${baseApi}/nfts/collected?platform=${platform}&account=${address}&offset=${offSet}&page_size=${pageSize}`
@@ -70,8 +69,6 @@ export const getNFTsOwned = async (address, platform, offSet) => {
 }
 
 export const getNFTMetadata = async (contract, id, platform) => {
-  // platforms: Ethereum, Polygon, Avalanche, Solana, Tezos
-
   return await fetch(`${baseApi}/nft/metadata?platform=${platform}&contract=${contract}&token=${id}`)
     .then((response) => response.json())
     .then((data) => {
