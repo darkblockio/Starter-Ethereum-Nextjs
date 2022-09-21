@@ -166,8 +166,8 @@ const NftDetailCard = () => {
                           className='flex h-16 text-center border border-gray-200 rounded-md'
                           key={i.value}
                         >
-                          <div className='m-auto flex flex-row justify-items-stretch'>
-                            <p className='text-sm font-bold text-gray-500 uppercase'>
+                          <div className='m-auto grid grid-cols-2 md:grid-cols-2 '>
+                            <p className='text-sm inset-y-0 left-0 font-bold text-gray-500 uppercase'>
                               {i.name}
                             </p>
                             <p className='w-32 text-sm font-semibold text-white truncate'>
