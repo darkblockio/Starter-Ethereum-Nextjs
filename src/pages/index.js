@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { getNFTMetadata, getNFTs, getNFTsOwned } from '../utils/getNfts'
 import { shortenAddr } from '../utils/shortAddress'
 import NftCard from '../components/NftCard'
@@ -33,15 +33,36 @@ export default function Home() {
     // })
   }
 
-  const getObjectData = async () => {
-    collection.map(async (el, i) => {
-      setTimeout(async () => {
-        await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
-          setArrayOfNfts((state) => [...state, nft])
-        })
-      }, 1000)
+  const getObjectData = useCallback(async () => {
+    async function getDataCollection() {
+      const arrOfPromises = collection.map( (item, i) => {
+          return new Promise( (resolve, reject) => {
+            setTimeout(() => {
+              getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((data) => {
+                const {name,contract,creator_address,token,creator_name,image,is_darkblocked } = data.nft
+                const obj = { name,contract,creator_address,token,creator_name,image,is_darkblocked }
+                console.log(obj)
+              })
+            }, 1500);
+          })
+        }
+      )
+      return Promise.all(arrOfPromises);
+    }
+
+    getDataCollection().then((data) => {
+      console.log('collection: ', data)
+      // setArrayOfNfts(data)
     })
-  }
+    // collection.map(async (el, i) => {
+    //   setTimeout(async () => {
+    //     await getNFTMetadata(collection[i].contract, collection[i].id, 'Ethereum').then((nft) => {
+    //       console.log(nft)
+    //       setArrayOfNfts((state) => [...state, nft])
+    //     })
+    //   }, 2000)
+    // })
+  },[])
 
   const getMyNFTs = async (address, loadMore) => {
     await getNFTsOwned(address, platform, loadMore ? offsetMyNfts : 0).then((nfts) => {
@@ -102,6 +123,7 @@ export default function Home() {
   }, [web3])
 
   useEffect(() => {
+    console.log('render many times')
     getObjectData()
   }, [])
 
@@ -153,8 +175,11 @@ export default function Home() {
               myNfts &&
               myNfts.length > 0 &&
               myNfts[0] !== undefined &&
-              myNfts.map((nft, i) => <NftCard key={i} nft={nft} />)}
+              myNfts.map((nft) => <NftCard key={nft.token} nft={nft} />)}
             {showNfts === 'created' &&
+              arrayOfNfts &&
+              arrayOfNfts !== [] &&
+              arrayOfNfts !== undefined &&
               arrayOfNfts.map((nft, i) => i < collection.length && <NftCard key={i} nft={nft.nft} />)}
           </div>
           {HasMoreNfts && showNfts === 'created' && (
@@ -167,7 +192,7 @@ export default function Home() {
           )}
           {/* {(myNfts?.length === 0 || myNfts[0] === undefined) && */}
           {myNfts?.length === 0 && showNfts === 'darkblockeds' && (
-            <div className=" text-white text-xl w-screen text-center m-auto ">
+            <div className="w-screen m-auto text-xl text-center text-white ">
               Oops, looks like you don't have any matching NFTs in this wallet.
             </div>
           )}
