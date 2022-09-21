@@ -1,7 +1,6 @@
 import Header from '../components/Header'
 import { useState, useEffect } from 'react'
 import { getNFTMetadata, getNFTs, getNFTsOwned } from '../utils/getNfts'
-import { shortenAddr } from '../utils/shortAddress'
 import NftCard from '../components/NftCard'
 import Web3 from 'web3'
 import { collection } from '../utils/collection'
@@ -97,7 +96,6 @@ export default function Home() {
       }
     }
     getAccount()
-
     // getAddress()
   }, [web3])
 
@@ -120,11 +118,6 @@ export default function Home() {
       <Header address={address} />
       <div>
         <>
-          <div className="pb-10 ml-32 text-2xl font-bold text-white">
-            {/* {address === ''
-              ? `Wallet: ${shortenAddr(process.env.REACT_APP_WALLET_ADDRESS)}`
-              : `Wallet: ${shortenAddr(address)}`} */}
-          </div>
           <div>
             <span // eslint-disable-line
               className={`hover:border-b-2 ml-32 mt-32 bg-secondary text-white pb-2 px-4 rounded mr-8 cursor-pointer ${

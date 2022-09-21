@@ -20,7 +20,6 @@ yarn create next-app
 pnpm create next-app
 ```
 
-
 </ol>
 <hr>
 <h2>How do you run your site locally?</h2>
