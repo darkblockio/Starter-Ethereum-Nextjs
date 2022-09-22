@@ -118,7 +118,11 @@ const NftDetailCard = () => {
                       return (
                         <>
                           <div className='grid grid-cols-2 p-2 md:grid-cols-2 '>
+
+                    
+
                             <p className='pt-1 text-xs font-bold text-left text-gray-500'>
+
                               {i.name}
                             </p>
                             <p className='text-base text-right text-white '>
