@@ -20,7 +20,7 @@ git clone gitRepo
 <br>
 
 ```
-npm install
+npm install or yarn install
 ```
 
 </ol>
