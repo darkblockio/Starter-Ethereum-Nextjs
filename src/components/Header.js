@@ -80,13 +80,13 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="absolute sticky top-0 z-50 flex items-center justify-center h-20 px-8 border-b bg-primary border-secondary">
+    <header className="sticky top-0 z-50 absolute md:flex flex flex-col md:flex-row items-center justify-center h-20 px-8 border-b bg-primary border-secondary">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
-          <div className="flex items-center"></div>
+          <div className="flex items-center "></div>
           <Link href="/">
-            <img // eslint-disable-line
-              className="w-auto h-12 px-2 py-2 border rounded cursor-pointer border-terciary"
+            <img
+              className="w-auto h-12 px-2 py-2 border hover:border-white hover:w-auto rounded cursor-pointer  border-terciary"
               src="/images/MyLogo.png"
               alt="Change your logo here"
             ></img>
@@ -96,7 +96,7 @@ const Header = () => {
           <div className="block ml-2 "></div>
           <div className="items-center justify-end space-x-4 md:inline-flex">
             <button
-              className="px-4 py-2 text-white border rounded bg-primary border-terciary hover:bg-terciary text-md"
+              className="px-4 py-2 text-white border h-12 rounded bg-primary border-terciary hover:border-white text-base"
               onClick={() => connect()}
             >
               {address && address !== '' ? shortenAddr(address) : 'Connect Wallet'}
