@@ -137,9 +137,9 @@ export default function Home() {
     <div className="min-h-screen bg-primary">
       <Header address={address} />
       <div>
-        <div className="px-10 pt-8">
+        <div className="md:px-10 pt-8 flex flex-col ml-8 items-center md:flex-row md:w-auto w-auto text-center">
           <span // eslint-disable-line
-            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
+            className={` hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
               showNfts === "created"
                 ? "border-b-2 border-black"
                 : "text-gray-300"
@@ -149,7 +149,7 @@ export default function Home() {
             NFTs Created
           </span>
           <span // eslint-disable-line
-            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
+            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 md:mt-0 mt-5 py-1 rounded mr-8 cursor-pointer ${
               showNfts === "darkblockeds"
                 ? "border-b-2 border-black"
                 : "text-gray-300"

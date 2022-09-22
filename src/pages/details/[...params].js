@@ -106,14 +106,14 @@ const NftDetailCard = () => {
   return (
     <div>
       <Header />
-      <div className='w-full h-auto overflow-hidden text-white bg-primary'>
+      <div className=' h-auto md:overflow-hidden text-white bg-primary'>
         {nftData ? (
           <div>
-            <div className='flex flex-row gap-10 mx-20 mt-8 flex-col-2 '>
-              <div className='w-1/2'>
+            <div className='flex md:mx-20 pt-8 mx-2 md:flex-cols-2 w-96 md:w-auto sm:flex-row flex-col'>
+              <div className='md:w-1/2'>
                 {nftData && nftData.image ? (
                   <img // eslint-disable-line
-                    className='mx-0 border border-gray-200 rounded-md shadow-md'
+                    className='my-5 border border-gray-200 rounded-md shadow-md'
                     src={validateImage(nftData.image)}
                     alt='NFT'
                   />
@@ -122,8 +122,8 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className='w-1/2 '>
-                <div className='mb-2 font-sans text-4xl font-bold'>
+              <div className=' md:w-1/2 my-5 sm:w-full md:text-left text-center m-0'>
+                <div className='mb-10 md:mb-2 font-sans text-4xl font-bold'>
                   {nftData.name}
                 </div>
                 <div>{nftData.nft_description}</div>
@@ -151,7 +151,7 @@ const NftDetailCard = () => {
               </div>
             </div>
             <div>
-              <div className='grid w-full grid-cols-3 gap-4 px-4 py-12 mt-12 borter-t-[4px] md:grid-cols-3 md:px-7'>
+              <div className='grid w-full md:grid-cols-3 gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7'>
                 <div className='flex flex-col pb-2'>
                   <div className='flex flex-row mb-2'>
                     <h2 className='font-bold'>Traits:</h2>
@@ -159,22 +159,19 @@ const NftDetailCard = () => {
                       {nftData.traits?.length ? nftData.traits.length : 0}
                     </div>
                   </div>
-                  <div className='flex-col'>
+                  <div className='border border-gray-200 rounded-md'>
                     {nftData.traits?.map(i => {
                       return (
-                        <div
-                          className='flex h-16 text-center border border-gray-200 rounded-md'
-                          key={i.value}
-                        >
-                          <div className='grid grid-cols-2 m-auto md:grid-cols-2 '>
-                            <p className='inset-y-0 left-0 text-sm font-bold text-gray-500 uppercase'>
+                        <>
+                          <div className='grid grid-cols-2 p-2 md:grid-cols-2 '>
+                            <p className='pt-1 text-xs font-bold text-left text-gray-500'>
                               {i.name}
                             </p>
-                            <p className='w-32 text-sm font-semibold text-white truncate'>
+                            <p className=' text-base text-right text-white'>
                               {i.value}
                             </p>
                           </div>
-                        </div>
+                        </>
                       )
                     })}
                   </div>
@@ -253,7 +250,7 @@ const NftDetailCard = () => {
                 </div>
                 <div>
                   <div>
-                    <div className='flex pb-2 mt-2'>
+                    <div className='flex pb-2'>
                       <h2 className='font-bold'>Owned by</h2>
                       <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 border border-gray-100 rounded'>
                         {1}
