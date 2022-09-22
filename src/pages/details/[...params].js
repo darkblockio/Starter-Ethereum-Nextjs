@@ -5,31 +5,8 @@ import { validateImage } from '../../utils/validateImage'
 import { dateTimeFormat } from '../../utils/dateFormatter'
 import { shortenAddr } from '../../utils/shortAddress'
 import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
 import { Web3Context } from '../../context/Web3Context'
-
-const EthereumDarkblockWidget = dynamic(
-  () =>
-    import('@darkblock.io/eth-widget').then(mod => {
-      return mod.EthereumDarkblockWidget
-    }),
-  { ssr: false }
-)
-
-const cb = (state) => {
-  console.log(state) // log out unlockable process states
-}
-
-const config = {
-  customCssClass: '', // pass here a class name you plan to use
-  debug: false, // debug flag to console.log some variables
-  imgViewer: {
-    // image viewer control parameters
-    showRotationControl: true,
-    autoHideControls: true,
-    controlsFadeDelay: true,
-  },
-}
+import { EthWidget } from '../../components/EthWidget'
 
 const countAttribs = (nft) => {
   let count = 1
@@ -83,22 +60,21 @@ const NftDetailCard = () => {
                 <div>{nftData.nft_description}</div>
                 <div>
                   {wallet && (
-                    <EthereumDarkblockWidget
-                      contractAddress={nftData.contract}
-                      tokenId={nftData.token}
-                      w3={wallet}
-                      cb={cb} // Optional
-                      config={config}
-                    />
+                    <div className='flex justify-end py-3'>
+                      <EthWidget
+                        contract={nftData.contract}
+                        id={nftData.token}
+                        w3={wallet}
+                        upgrade={true}
+                      />
+                    </div>
                   )}
 
                   {wallet && (
-                    <EthereumDarkblockWidget
-                      contractAddress={nftData.contract}
-                      tokenId={nftData.token}
+                    <EthWidget
+                      contract={nftData.contract}
+                      id={nftData.token}
                       w3={wallet}
-                      cb={cb} // Optional
-                      config={config}
                     />
                   )}
                 </div>
@@ -119,7 +95,7 @@ const NftDetailCard = () => {
                         <>
                           <div className='grid grid-cols-2 p-2 md:grid-cols-2 '>
 
-                    
+
 
                             <p className='pt-1 text-xs font-bold text-left text-gray-500'>
 
