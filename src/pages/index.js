@@ -116,7 +116,6 @@ export default function Home() {
   }, [address]);
 
   const renderNFTs = () => {
-    console.log("renderrrr", showNfts);
     switch (showNfts) {
       case "darkblockeds":
         return (
@@ -161,7 +160,7 @@ export default function Home() {
           </span>
         </div>
         {isLoaded ? (
-          <div className="grid pt-8 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+          <div className="grid gap-3 px-4 pt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
             {renderNFTs()}
           </div>
         ) : (

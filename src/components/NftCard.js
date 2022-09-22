@@ -7,30 +7,34 @@ const NftCard = ({ nft }) => {
   return (
     <Link href={`details/${contract}/${token}`}>
       {image ? (
-        <div className="mb-8 text-center border border-gray-200 shadow-sm bg-secondary h-84 w-60 rounded-xl shadow-white hover:shadow-md hover:shadow-white">
-          <div className="rounded-lg">
-            <img
+        <div className="mb-8 text-center transition-all transform group hover:scale-105 bg-secondary rounded-xl w-72">
+          <div>
+            <img // eslint-disable-line
+              className='object-cover mx-auto h-72 rounded-t-xl'
               loading={'lazy'}
               alt={image}
-              className="object-contain mx-auto mt-2 h-60 w-44 rounded-t-xl"
               src={image}
             />
           </div>
-          <div className="w-full p-2 my-2 text-left">
-            <h2 className="text-lg font-bold leading-5 text-center text-white truncate whitespace-nowrap">
+          <div className="w-full p-3 text-left h-28">
+            <h2 className="text-lg font-semibold leading-5 text-white truncate whitespace-nowrap">
               {name}
             </h2>
-          </div>
-          <div className="w-full p-2 my-1 text-left">
-            <h2 className="text-sm leading-5 text-white truncate whitespace-nowrap">
-              {is_darkblocked && (
-                <img
+            { is_darkblocked ? (
+              <div className="flex items-center w-full py-2">
+                <img // eslint-disable-line
                   alt="icon"
-                  className="float-right w-auto h-4 mx-auto mt-1 text-black"
+                  className="h-5"
                   src="/footericon-blk.svg"
                 ></img>
-              )}
-            </h2>
+                <div className='pl-2 font-semibold text-white align-middle'>
+                  Unlockable Content
+                </div>
+              </div>
+            ) : <div className='h-5'></div>}
+          </div>
+          <div className='absolute bottom-0 hidden w-full py-2 font-medium text-white cursor-pointer group-hover:block bg-terciary rounded-b-xl'>
+            Details
           </div>
         </div>
       ) : (

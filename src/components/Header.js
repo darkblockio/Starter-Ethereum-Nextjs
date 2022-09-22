@@ -80,12 +80,12 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="sticky top-0 z-50 absolute flex items-center justify-center h-20 px-8 border-b bg-primary border-secondary">
+    <header className="absolute sticky top-0 z-50 flex items-center justify-center h-20 px-8 border-b bg-primary border-secondary">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
           <div className="flex items-center"></div>
           <Link href="/">
-            <img
+            <img // eslint-disable-line
               className="w-auto h-12 px-2 py-2 border rounded cursor-pointer border-terciary"
               src="/images/MyLogo.png"
               alt="Change your logo here"
