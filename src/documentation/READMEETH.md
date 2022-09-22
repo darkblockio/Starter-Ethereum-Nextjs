@@ -212,7 +212,8 @@ exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
 ```
 
 <h3>Create a file in the root of the project <strong>.env</strong> and put the following code:</h3>
-REACT_APP_WALLET_ADDRESS=YourAPIKeyHere //this is the default address with NFTs you want to see as a gallery
+NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS=YourDefaultAddresHere //this is the default address with NFTs you want to see as a gallery
+NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS=true //true if you want to use a wallet addres, false if you want to use a Json object
 
 <h3>Restart your app and run</h3>
 <br>
