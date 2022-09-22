@@ -3,25 +3,29 @@
 <h4>Open this in preview mode for the best experience</h4>
 <hr>
 <h2>Intro:</h2>
-<h3>We are going to build a simple web app using Next and our Ethereum widget.</h3>
+<h3>We are going to clone a simple web app of nfts using Next and our Ethereum widget.</h3>
 <h3>
 <a href="https://nextjs.org/docs">Check out the Next documents here</a>and follow the open-source documentation to create and deploy your site along with the documentation we have provided.</h3><hr>
 <h2>Setting up Next to run your site</h2><br>
 <ol>
 <li>Go to your desktop and create a folder where you want your project to live. Open a new terminal, GitBash Here, or cmd.</li><br>
-<li>Run the following code in your terminal:</li>
+<li>Clone the repository:</li>
 <br>
 
 ```
-npx create-next-app@latest
-# or
-yarn create next-app
-# or
-pnpm create next-app
+git clone gitRepo
+```
+
+<li>You should also install all the dependencies</li>
+<br>
+
+```
+npm install
 ```
 
 </ol>
 <hr>
+
 <h2>How do you run your site locally?</h2>
 <ol>
 <li>In the command line, cd into the directory that you created. 
