@@ -7,10 +7,10 @@ const NftCard = ({ nft }) => {
   return (
     <Link href={`details/${contract}/${token}`}>
       {image ? (
-        <div className="mb-8 text-center transition-all transform group hover:scale-105 bg-secondary rounded-xl">
+        <div className="mb-8 text-center transition-all transform group hover:scale-105 bg-secondary rounded-xl w-72">
           <div>
             <img // eslint-disable-line
-              className='object-cover mx-auto h-72'
+              className='object-cover mx-auto h-72 rounded-t-xl'
               loading={'lazy'}
               alt={image}
               src={image}
@@ -21,12 +21,15 @@ const NftCard = ({ nft }) => {
               {name}
             </h2>
             { is_darkblocked ? (
-              <div className="flex justify-end w-full py-2">
+              <div className="flex items-center w-full py-2">
                 <img // eslint-disable-line
                   alt="icon"
                   className="h-5"
                   src="/footericon-blk.svg"
                 ></img>
+                <div className='pl-2 font-semibold text-white align-middle'>
+                  Unlockable Content
+                </div>
               </div>
             ) : <div className='h-5'></div>}
           </div>

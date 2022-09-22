@@ -16,6 +16,21 @@ const EthereumDarkblockWidget = dynamic(
   { ssr: false }
 )
 
+const cb = (state) => {
+  console.log(state) // log out unlockable process states
+}
+
+const config = {
+  customCssClass: '', // pass here a class name you plan to use
+  debug: false, // debug flag to console.log some variables
+  imgViewer: {
+    // image viewer control parameters
+    showRotationControl: true,
+    autoHideControls: true,
+    controlsFadeDelay: true,
+  },
+}
+
 const countAttribs = (nft) => {
   let count = 1
   if (nft.token) count++
@@ -29,7 +44,7 @@ const countAttribs = (nft) => {
 const NftDetailCard = () => {
   const router = useRouter()
   const contract = router.query.params ? router.query.params[0] : null
-  const id = router.query.params ? router.query.params[1] : null
+  const id       = router.query.params ? router.query.params[1] : null
   const platform = 'Ethereum'
 
   const [nftData, setNftData] = useState(null)
@@ -41,22 +56,7 @@ const NftDetailCard = () => {
         setNftData(data.nft)
       })
     }
-  }, [])
-
-  const cb = (state) => {
-    console.log(state) // log out unlockable process states
-  }
-
-  const config = {
-    customCssClass: '', // pass here a class name you plan to use
-    debug: false, // debug flag to console.log some variables
-    imgViewer: {
-      // image viewer control parameters
-      showRotationControl: true,
-      autoHideControls: true,
-      controlsFadeDelay: true,
-    },
-  }
+  }, [id, contract])
 
   useEffect(() => {
     const web3 = new Web3(window.web3.currentProvider)
@@ -109,10 +109,10 @@ const NftDetailCard = () => {
       <div className='w-full h-auto overflow-hidden text-white bg-primary'>
         {nftData ? (
           <div>
-            <div className='flex gap-10 mx-20 mt-8 flex-col-2 flex-row '>
+            <div className='flex flex-row gap-10 mx-20 mt-8 flex-col-2 '>
               <div className='w-1/2'>
                 {nftData && nftData.image ? (
-                  <img
+                  <img // eslint-disable-line
                     className='mx-0 border border-gray-200 rounded-md shadow-md'
                     src={validateImage(nftData.image)}
                     alt='NFT'
@@ -122,7 +122,7 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className=' w-1/2'>
+              <div className='w-1/2 '>
                 <div className='mb-2 font-sans text-4xl font-bold'>
                   {nftData.name}
                 </div>
@@ -166,8 +166,8 @@ const NftDetailCard = () => {
                           className='flex h-16 text-center border border-gray-200 rounded-md'
                           key={i.value}
                         >
-                          <div className='m-auto grid grid-cols-2 md:grid-cols-2 '>
-                            <p className='text-sm inset-y-0 left-0 font-bold text-gray-500 uppercase'>
+                          <div className='grid grid-cols-2 m-auto md:grid-cols-2 '>
+                            <p className='inset-y-0 left-0 text-sm font-bold text-gray-500 uppercase'>
                               {i.name}
                             </p>
                             <p className='w-32 text-sm font-semibold text-white truncate'>
@@ -280,7 +280,7 @@ const NftDetailCard = () => {
             </div>
           </div>
         ) : (
-          <div className='text-center mt-20 text-2xl h-screen'>NFT not found</div>
+          <div className='h-screen mt-20 text-2xl text-center'>NFT not found</div>
         )}
       </div>
     </div>
