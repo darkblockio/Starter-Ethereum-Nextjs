@@ -164,7 +164,7 @@ const NftDetailCard = () => {
                       return (
                         <>
                           <div className='grid grid-cols-2 p-2 md:grid-cols-2 '>
-                            <p className='pt-1 text-sm font-bold text-left text-gray-500'>
+                            <p className='pt-1 text-sm font-semibold text-left text-gray-500'>
                               {i.name}
                             </p>
                             <p className=' text-base text-right text-white'>
@@ -277,7 +277,7 @@ const NftDetailCard = () => {
             </div>
           </div>
         ) : (
-          <div className='h-screen mt-20 text-2xl text-center'>NFT not found</div>
+          <div className='h-screen md:mt-20 text-2xl text-center'>NFT not found</div>
         )}
       </div>
     </div>
