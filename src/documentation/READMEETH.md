@@ -6,7 +6,7 @@
 <h3>We are going to clone a simple web app of nfts using Next and our Ethereum widget.</h3>
 <h3>
 <a href="https://nextjs.org/docs">Check out the Next documents here</a>and follow the open-source documentation to create and deploy your site along with the documentation we have provided.</h3><hr>
-<h2>Setting up Next to run your site</h2><br>
+<h2>Clone</h2><br>
 <ol>
 <li>Go to your desktop and create a folder where you want your project to live. Open a new terminal, GitBash Here, or cmd.</li><br>
 <li>Clone the repository:</li>
