@@ -1,8 +1,14 @@
 .DarkblockWidget-App {
-  @apply font-sans text-gray-500 bg-transparent ;
+  @apply font-sans text-gray-500 bg-white;
 }
-.DarkblockWidget-App .DarkblockWidget-Header {
-  @apply bg-primary shadow-none;
+.DarkblockWidget-App .DarkblockWidget-Footer {
+  @apply px-2 py-5;
+}
+/* .DarkblockWidget-App .DarkblockWidget-Footer svg path {
+  @apply fill-white;
+} */
+/* .DarkblockWidget-App .DarkblockWidget-Header {
+  @apply shadow-none bg-primary;
 }
 .DarkblockWidget-App .DarkblockWidget-Header .DarkblockWidget-Header-Row .content {
   display: none;
@@ -49,7 +55,6 @@
   @apply bg-gray-700;
 }
 .DarkblockWidget-Stack-Panel .name {
-  /* width: 250px; */
   @apply w-full;
 }
 .DarkblockWidget-App .DarkblockWidget-Stack-Panel .stack-table td {
@@ -66,4 +71,4 @@
 }
 .upgrade-add-content {
   @apply bg-red-500;
-}
+} */
