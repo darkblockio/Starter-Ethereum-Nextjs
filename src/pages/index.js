@@ -89,7 +89,7 @@ export default function Home() {
   };
 
   return (
-    <div className=" bg-primary ">
+    <div>
       <Header address={address} />
       <div>
         <div className="flex flex-col items-center w-auto pt-8 ml-8 text-center md:px-10 md:flex-row md:w-auto">
