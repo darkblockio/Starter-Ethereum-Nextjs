@@ -38,7 +38,7 @@ const Header = () => {
   }
 
   return (
-    <header className="absolute sticky top-0 z-50 flex flex-col items-center justify-center h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary">
+    <header className="absolute sticky top-0 z-50 flex flex-col items-center justify-center h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary w-auto">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
           <div className="flex items-center "></div>

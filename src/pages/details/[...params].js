@@ -35,16 +35,16 @@ const NftDetailCard = () => {
   }, [id, contract])
 
   return (
-    <div>
+    <div className='w-auto bg-primary'>
       <Header />
       <div className='h-auto text-white md:overflow-hidden bg-primary'>
         {nftData ? (
           <div>
-            <div className='flex flex-col pt-8 mx-2 md:mx-20 md:flex-cols-2 w-96 md:w-auto sm:flex-row'>
-              <div className='md:w-1/2'>
+            <div className='flex flex-col pt-8 w-auto  md:mx-20 md:flex-cols-2  md:w-auto sm:flex-row'>
+              <div className='mx-4 md:w-1/2'>
                 {nftData && nftData.image ? (
                   <img // eslint-disable-line
-                    className='my-5 border border-gray-200 rounded-md shadow-md'
+                    className='my-5 border border-gray-200 rounded-md shadow-md md:h-66'
                     src={validateImage(nftData.image)}
                     alt='NFT'
                   />
@@ -53,14 +53,14 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className='m-0 my-5 text-center md:w-1/2 sm:w-full md:text-left'>
+              <div className='m-0 my-5 text-center md:w-1/2 w-auto md:text-left'>
                 <div className='mb-10 font-sans text-4xl font-bold md:mb-2'>
                   {nftData.name}
                 </div>
-                <div>{nftData.nft_description}</div>
-                <div>
+                <div className='mx-2'>{nftData.nft_description}</div>
+                <div className='mx-2'>
                   {wallet && (
-                    <div className='flex justify-end py-3'>
+                    <div className='flex justify-end  text-gray-800'>
                       <EthWidget
                         contract={nftData.contract}
                         id={nftData.token}
@@ -98,7 +98,7 @@ const NftDetailCard = () => {
                               {i.name}
                             </p>
                             <p className='text-base text-right text-white '>
-                              {i.value}
+                              {shortenAddr(i.value)}
                             </p>
                           </div>
                         </>

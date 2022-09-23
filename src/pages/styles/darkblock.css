@@ -1,13 +1,16 @@
 .DarkblockWidget-App {
-  @apply font-sans text-gray-500 bg-white;
+  @apply font-sans text-gray-500 bg-white ;
 }
-.DarkblockWidget-App .DarkblockWidget-Footer {
+/* .DarkblockWidget-App .DarkblockWidget-Footer {
   @apply px-2 py-5;
-}
-/* .DarkblockWidget-App .DarkblockWidget-Footer svg path {
-  @apply fill-white;
 } */
-/* .DarkblockWidget-App .DarkblockWidget-Header {
+.DarkblockWidget-App .DarkblockWidget-Stack-Panel {
+  @apply bg-white;
+}
+ /* .DarkblockWidget-App .DarkblockWidget-Footer svg path {
+  @apply fill-white;
+} 
+ .DarkblockWidget-App .DarkblockWidget-Header {
   @apply shadow-none bg-primary;
 }
 .DarkblockWidget-App .DarkblockWidget-Header .DarkblockWidget-Header-Row .content {
@@ -35,9 +38,6 @@
   @apply text-gray-500;
 }.DarkblockWidget-App .Detail-modal .dropdownContent .boxMenu:hover {
   @apply bg-gray-900;
-}
-.DarkblockWidget-App .DarkblockWidget-Stack-Panel {
-  @apply bg-gray-900 sm:w-full md:w-full;
 }
 .DarkblockWidget-App .DarkblockWidget-Stack-Panel .rowheader {
   @apply bg-gray-800;
@@ -71,4 +71,4 @@
 }
 .upgrade-add-content {
   @apply bg-red-500;
-} */
+}  */
