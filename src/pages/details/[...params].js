@@ -21,10 +21,10 @@ const countAttribs = (nft) => {
 const NftDetailCard = () => {
   const router = useRouter()
   const contract = router.query.params ? router.query.params[0] : null
-  const id       = router.query.params ? router.query.params[1] : null
+  const id = router.query.params ? router.query.params[1] : null
   const platform = 'Ethereum'
   const [nftData, setNftData] = useState(null)
-  const {wallet} = useContext(Web3Context)
+  const { wallet } = useContext(Web3Context)
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
@@ -35,71 +35,53 @@ const NftDetailCard = () => {
   }, [id, contract])
 
   return (
-    <div className='w-auto bg-primary'>
+    <div className="w-auto bg-primary">
       <Header />
-      <div className='h-auto text-white md:overflow-hidden bg-primary'>
+      <div className="h-auto text-white md:overflow-hidden bg-primary">
         {nftData ? (
           <div>
-            <div className='flex flex-col pt-8 w-auto  md:mx-20 md:flex-cols-2  md:w-auto sm:flex-row'>
-              <div className='mx-4 md:w-1/2'>
+            <div className="flex flex-col pt-8 w-auto  md:mx-20 md:flex-cols-2  md:w-auto sm:flex-row">
+              <div className="mx-4 md:w-1/2">
                 {nftData && nftData.image ? (
                   <img // eslint-disable-line
-                    className='my-5 border border-gray-200 rounded-md shadow-md md:h-66'
+                    className="my-5 border border-gray-200 rounded-md shadow-md md:h-66"
                     src={validateImage(nftData.image)}
-                    alt='NFT'
+                    alt="NFT"
                   />
                 ) : (
                   <></>
                 )}
               </div>
 
-              <div className='m-0 my-5 text-center md:w-1/2 w-auto md:text-left'>
-                <div className='mb-10 font-sans text-4xl font-bold md:mb-2'>
-                  {nftData.name}
-                </div>
-                <div className='mx-2'>{nftData.nft_description}</div>
-                <div className='mx-2'>
-                  {wallet && (
-                    <div className='flex justify-end  text-gray-800'>
-                      <EthWidget
-                        contract={nftData.contract}
-                        id={nftData.token}
-                        w3={wallet}
-                        upgrade={true}
-                      />
+              <div className="m-0 my-5 text-center md:w-1/2 w-auto md:text-left">
+                <div className="mb-10 font-sans text-4xl font-bold md:mb-2">{nftData.name}</div>
+                <div className="mx-2">{nftData.nft_description}</div>
+                <div className="mx-2">
+                  {
+                    <div className="flex justify-end  text-gray-800">
+                      <EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} upgrade={true} />
                     </div>
-                  )}
-
-                  {wallet && (
-                    <EthWidget
-                      contract={nftData.contract}
-                      id={nftData.token}
-                      w3={wallet}
-                    />
-                  )}
+                  }
+                  {<EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} />}
                 </div>
               </div>
             </div>
             <div>
-              <div className='grid w-full md:grid-cols-3 gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7'>
-                <div className='flex flex-col pb-2'>
-                  <div className='flex flex-row mb-2'>
-                    <h2 className='font-bold'>Traits:</h2>
-                    <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-800 bg-gray-200 rounded'>
+              <div className="grid w-full md:grid-cols-3 gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7">
+                <div className="flex flex-col pb-2">
+                  <div className="flex flex-row mb-2">
+                    <h2 className="font-bold">Traits:</h2>
+                    <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-800 bg-gray-200 rounded">
                       {nftData.traits?.length ? nftData.traits.length : 0}
                     </div>
                   </div>
-                  <div className='border border-gray-200 rounded-md'>
-                    {nftData.traits?.map(i => {
+                  <div className="border border-gray-200 rounded-md">
+                    {nftData.traits?.map((i) => {
                       return (
                         <>
-                          <div className='grid grid-cols-2 p-2 md:grid-cols-2 '>
-                            <p className='pt-1 text-sm font-semibold text-left text-gray-500'>
-                              {i.name}
-                            </p>
-                            <p className='text-base text-right text-white '>
-                              {shortenAddr(i.value)}
-                            </p>
+                          <div className="grid grid-cols-2 p-2 md:grid-cols-2 ">
+                            <p className="pt-1 text-sm font-semibold text-left text-gray-500">{i.name}</p>
+                            <p className="text-base text-right text-white ">{shortenAddr(i.value)}</p>
                           </div>
                         </>
                       )
@@ -107,71 +89,67 @@ const NftDetailCard = () => {
                   </div>
                 </div>
                 <div>
-                  <div className='flex pb-2'>
-                    <h2 className='font-bold'>Details</h2>
-                    <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded'>
+                  <div className="flex pb-2">
+                    <h2 className="font-bold">Details</h2>
+                    <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded">
                       {countAttribs(nftData)}
                     </div>
                   </div>
-                  <div className='grid grid-cols-2 p-2 text-left border border-gray-200 rounded-md'>
+                  <div className="grid grid-cols-2 p-2 text-left border border-gray-200 rounded-md">
                     {platform && (
                       <>
-                        <div className='py-2 text-sm font-semibold text-gray-500'>
+                        <div className="py-2 text-sm font-semibold text-gray-500">
                           <h3>Blockchain</h3>
                         </div>
-                        <div className='py-2 text-right truncate text-ellipsis'>
+                        <div className="py-2 text-right truncate text-ellipsis">
                           <p>{platform}</p>
                         </div>
                       </>
                     )}
                     {nftData.token && (
                       <>
-                        <div className='py-2 text-sm font-semibold text-gray-500'>
+                        <div className="py-2 text-sm font-semibold text-gray-500">
                           <h3>Token ID</h3>
                         </div>
 
-                        <p className='py-2 text-right underline truncate text-ellipsis'>
-                          {shortenAddr(nftData.token)}
-                        </p>
+                        <p className="py-2 text-right underline truncate text-ellipsis">{shortenAddr(nftData.token)}</p>
                       </>
                     )}
                     {contract && (
                       <>
-                        <div className='py-2 text-sm font-semibold text-gray-500'>
+                        <div className="py-2 text-sm font-semibold text-gray-500">
                           <h3>Contract Address</h3>
                         </div>
 
-                        <p className='py-2 text-right underline truncate'>
-                          {shortenAddr(contract)}
-                        </p>
+                        <p className="py-2 text-right underline truncate">{shortenAddr(contract)}</p>
                       </>
                     )}
                     {nftData.blockchain && (
                       <>
-                        <div className='py-2 text-sm font-semibold text-gray-500'>
+                        <div className="py-2 text-sm font-semibold text-gray-500">
                           <h3>Contract Standard</h3>
                         </div>
-                        <div className='py-2 text-right'>
+                        <div className="py-2 text-right">
                           <p>{nftData.blockchain}</p>
                         </div>
                       </>
                     )}
                     {nftData.edition && (
                       <>
-                        <div className='py-2 text-sm font-semibold text-gray-500'>
+                        <div className="py-2 text-sm font-semibold text-gray-500">
                           <h3>Editions</h3>
                         </div>
-                        <div className='py-2 text-right'>
+                        <div className="py-2 text-right">
                           <p>{nftData.edition}</p>
                         </div>
                       </>
                     )}
                     {nftData.nft_date_created && (
                       <>
-                        <div className='py-2 text-sm font-semibold text-gray-500'>
+                        <div className="py-2 text-sm font-semibold text-gray-500">
                           <h3>Date Contract</h3>
                         </div>
-                        <div className='py-2 text-right'>
+                        <div className="py-2 text-right">
                           <p>{dateTimeFormat(nftData.nft_date_created)}</p>
                         </div>
                       </>
@@ -180,24 +158,24 @@ const NftDetailCard = () => {
                 </div>
                 <div>
                   <div>
-                    <div className='flex pb-2'>
-                      <h2 className='font-bold'>Owned by</h2>
-                      <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 border border-gray-100 rounded'>
+                    <div className="flex pb-2">
+                      <h2 className="font-bold">Owned by</h2>
+                      <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 border border-gray-100 rounded">
                         {1}
                       </div>
                     </div>
-                    <p className='p-3 font-medium text-center text-gray-700 border border-gray-100 rounded '>
+                    <p className="p-3 font-medium text-center text-gray-700 border border-gray-100 rounded ">
                       {shortenAddr(nftData.owner_address)}
                     </p>
 
-                    <div className='flex pb-2 mt-2'>
-                      <h2 className='font-bold '>Created by</h2>
-                      <div className='px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded'>
+                    <div className="flex pb-2 mt-2">
+                      <h2 className="font-bold ">Created by</h2>
+                      <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded">
                         {nftData.creators?.length ? nftData.creators.length : 1}
                       </div>
                     </div>
                     {nftData.creator_address && (
-                      <p className='p-3 font-medium text-center text-gray-700 border border-gray-100 rounded'>
+                      <p className="p-3 font-medium text-center text-gray-700 border border-gray-100 rounded">
                         {shortenAddr(nftData.creator_address)}
                       </p>
                     )}
@@ -207,7 +185,7 @@ const NftDetailCard = () => {
             </div>
           </div>
         ) : (
-          <div className='h-screen md:mt-20 text-2xl text-center'>NFT not found</div>
+          <div className="h-screen md:mt-20 text-2xl text-center">NFT not found</div>
         )}
       </div>
     </div>
