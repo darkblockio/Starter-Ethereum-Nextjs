@@ -1,15 +1,15 @@
 .DarkblockWidget-App {
   @apply font-sans text-gray-500 bg-white ;
 }
-/* .DarkblockWidget-App .DarkblockWidget-Footer {
-  @apply px-2 py-5;
-} */
+.DarkblockWidget-App .DarkblockWidget-Footer {
+  @apply px-2 py-3;
+}
 .DarkblockWidget-App .DarkblockWidget-Stack-Panel {
   @apply bg-white;
 }
  /* .DarkblockWidget-App .DarkblockWidget-Footer svg path {
   @apply fill-white;
-} 
+}
  .DarkblockWidget-App .DarkblockWidget-Header {
   @apply shadow-none bg-primary;
 }
