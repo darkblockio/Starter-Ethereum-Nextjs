@@ -196,7 +196,7 @@ const NftDetailCard = () => {
                             {1}
                           </div>
                         </div>
-                        <p className='p-3 font-medium text-center text-gray-700 border border-gray-100 rounded '>
+                        <p className='p-3 font-medium text-center text-gray-500 border border-gray-100 rounded '>
                           {shortenAddr(nftData.owner_address)}
                         </p>
 
@@ -207,7 +207,7 @@ const NftDetailCard = () => {
                           </div>
                         </div>
                         {nftData.creator_address && (
-                          <p className='p-3 font-medium text-center text-gray-700 border border-gray-100 rounded'>
+                          <p className='p-3 font-medium text-center text-gray-500 border border-gray-100 rounded'>
                             {shortenAddr(nftData.creator_address)}
                           </p>
                         )}
