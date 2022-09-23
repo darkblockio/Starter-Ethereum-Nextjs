@@ -1,10 +1,10 @@
 import Header from "../components/Header";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getNFTs, getNFTsOwned } from "../utils/getNfts";
 import NftCard from "../components/NftCard";
-import Web3 from "web3";
 import { collection } from "../utils/collection";
 import { Loading } from "../components/Loading";
+import { Web3Context } from "../context/Web3Context";
 
 const platform = "Ethereum";
 
@@ -12,12 +12,12 @@ export default function Home() {
   const [myNfts, setMyNfts] = useState([]);
   const [offset, setOffset] = useState(0);
   const [offsetMyNfts, setOffsetMyNfts] = useState(0);
-  const [address, setAddress] = useState("");
   const [HasMoreNfts, setHasMoreNfts] = useState(false);
   const [HasMoreMyNfts, setHasMoreMyNfts] = useState(false);
   const [showNfts, setShowNfts] = useState("created");
   const [arrayOfNfts, setArrayOfNfts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
+  const { address } = useContext(Web3Context)
 
   const getData = async () => {
     await getNFTs(
@@ -55,51 +55,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const web3 = new Web3(window.web3.currentProvider);
-
-    const accountWasChanged = (accounts) => {
-      setAddress(null);
-
-      setTimeout(() => {
-        if (accounts[0]) {
-          setAddress(accounts[0]);
-        }
-      }, 0);
-    };
-
-    const getAndSetAccount = async () => {
-      const changedAccounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      setAddress(null);
-      setTimeout(() => {
-        if (changedAccounts[0]) {
-          setAddress(changedAccounts[0]);
-        }
-      }, 0);
-    };
-
-    const clearAccount = () => {
-      setAddress(null);
-    };
-
-    window.ethereum.on("accountsChanged", accountWasChanged);
-    window.ethereum.on("connect", getAndSetAccount);
-    window.ethereum.on("disconnect", clearAccount);
-
-    async function getAccount() {
-      if (window.ethereum && web3?.eth) {
-        const accounts = await web3.eth.getAccounts();
-        if (accounts && accounts[0]) {
-          setAddress(accounts[0]);
-        }
-      }
-    }
-    getAccount();
-    // getAddress()
-  }, []);
-
-  useEffect(() => {
     process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === "true"
       ? getData()
       : setArrayOfNfts(collection);
@@ -116,7 +71,6 @@ export default function Home() {
   }, [address]);
 
   const renderNFTs = () => {
-    console.log("renderrrr", showNfts);
     switch (showNfts) {
       case "darkblockeds":
         return (
@@ -135,12 +89,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className=" bg-primary ">
       <Header address={address} />
       <div>
-        <div className="px-10 pt-8">
+        <div className="flex flex-col items-center w-auto pt-8 ml-8 text-center md:px-10 md:flex-row md:w-auto">
           <span // eslint-disable-line
-            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
+            className={` hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
               showNfts === "created"
                 ? "border-b-2 border-black"
                 : "text-gray-300"
@@ -150,7 +104,7 @@ export default function Home() {
             NFTs Created
           </span>
           <span // eslint-disable-line
-            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
+            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 md:mt-0 mt-5 py-1 rounded mr-8 cursor-pointer ${
               showNfts === "darkblockeds"
                 ? "border-b-2 border-black"
                 : "text-gray-300"
@@ -161,7 +115,7 @@ export default function Home() {
           </span>
         </div>
         {isLoaded ? (
-          <div className="grid pt-8 sm:grid-cols-2 lg:grid-cols-4 justify-items-center">
+          <div className="grid gap-3 px-4 pt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
             {renderNFTs()}
           </div>
         ) : (

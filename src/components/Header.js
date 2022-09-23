@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { shortenAddr } from '../utils/shortAddress'
 import Web3 from 'web3'
+import { Web3Context } from '../context/Web3Context'
 
 const Header = () => {
-  const [address, setAddress] = useState('')
+  const { address, setAddress } = useContext(Web3Context)
 
   const connect = async () => {
     const web3 = new Web3(window.web3.currentProvider)
@@ -36,67 +37,24 @@ const Header = () => {
     }
   }
 
-  useEffect(() => {
-    if (!window.ethereum) {
-      return
-    }
-
-    const web3 = new Web3(window.web3.currentProvider)
-    const accountWasChanged = (accounts) => {
-      if (accounts[0]) {
-        setAddress(accounts[0])
-      } else {
-        setAddress('')
-      }
-    }
-    const getAndSetAccount = async () => {
-      const changedAccounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      })
-      if (changedAccounts[0]) {
-        setAddress(changedAccounts[0])
-      } else {
-        setAddress('')
-      }
-    }
-    const clearAccount = () => {
-      setAddress('')
-    }
-
-    window.ethereum.on('accountsChanged', accountWasChanged)
-    window.ethereum.on('connect', getAndSetAccount)
-    window.ethereum.on('disconnect', clearAccount)
-
-    async function getAddress() {
-      if (window.ethereum) {
-        const accounts = await web3.eth.getAccounts()
-        if (accounts && accounts[0]) {
-          setAddress(accounts[0])
-        }
-      }
-    }
-
-    getAddress()
-  }, [])
-
   return (
-    <header className="sticky top-0 z-50 absolute flex items-center justify-center h-20 px-8 border-b bg-primary border-secondary">
+    <header className="absolute sticky top-0 z-50 flex flex-col items-center justify-center h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary w-auto">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
-          <div className="flex items-center"></div>
+          <div className="flex items-center "></div>
           <Link href="/">
-            <img
-              className="w-auto h-12 px-2 py-2 border rounded cursor-pointer border-terciary"
+            <img // eslint-disable-line
+              className="w-auto h-12 px-2 py-2 border rounded cursor-pointer hover:border-white hover:w-auto border-terciary"
               src="/images/MyLogo.png"
               alt="Change your logo here"
-            ></img>
+            />
           </Link>
         </div>
         <div className="flex items-center space-x-2">
           <div className="block ml-2 "></div>
           <div className="items-center justify-end space-x-4 md:inline-flex">
             <button
-              className="px-4 py-2 text-white border rounded bg-primary border-terciary hover:bg-terciary text-md"
+              className="h-12 px-4 py-2 text-base text-white border rounded bg-primary border-terciary hover:border-white"
               onClick={() => connect()}
             >
               {address && address !== '' ? shortenAddr(address) : 'Connect Wallet'}

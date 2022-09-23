@@ -1,8 +1,17 @@
 .DarkblockWidget-App {
-  @apply font-sans text-white bg-gray-800;
+  @apply font-sans text-gray-500 bg-white ;
 }
-.DarkblockWidget-App .DarkblockWidget-Header {
-  @apply bg-gray-800 shadow-none;
+/* .DarkblockWidget-App .DarkblockWidget-Footer {
+  @apply px-2 py-5;
+} */
+.DarkblockWidget-App .DarkblockWidget-Stack-Panel {
+  @apply bg-white;
+}
+ /* .DarkblockWidget-App .DarkblockWidget-Footer svg path {
+  @apply fill-white;
+} 
+ .DarkblockWidget-App .DarkblockWidget-Header {
+  @apply shadow-none bg-primary;
 }
 .DarkblockWidget-App .DarkblockWidget-Header .DarkblockWidget-Header-Row .content {
   display: none;
@@ -11,26 +20,23 @@
   @apply bg-gray-900;
 }
 .DarkblockWidget-App .DarkblockWidget-Header .DarkblockWidget-Header-Row .inner-button {
-  @apply h-12 px-6 py-1 text-white bg-gray-900 border-transparent max-h-12;
+  @apply h-12 px-6 py-1 text-gray-500 bg-gray-900 border-transparent max-h-12;
 }
 .DarkblockWidget-App .DarkblockWidget-Header .DarkblockWidget-Header-Row .title-red {
-  @apply text-base text-white;
+  @apply text-base text-gray-500;
 }
 .DarkblockWidget-App .Detail-modal {
   @apply bg-gray-800 shadow-none;
 }
 .DarkblockWidget-App .Detail-modal .dropdownContent {
-  @apply shadow-none;
+  @apply shadow-none ;
 }
 .DarkblockWidget-App .Detail-modal .dropdownContent .titleBoxMenu {
-  @apply text-white;
+  @apply text-gray-500;
 }
 .DarkblockWidget-App .Detail-modal .dropdownContent .boxMenu {
-  @apply text-white;
+  @apply text-gray-500;
 }.DarkblockWidget-App .Detail-modal .dropdownContent .boxMenu:hover {
-  @apply bg-gray-900;
-}
-.DarkblockWidget-App .DarkblockWidget-Stack-Panel {
   @apply bg-gray-900;
 }
 .DarkblockWidget-App .DarkblockWidget-Stack-Panel .rowheader {
@@ -49,21 +55,20 @@
   @apply bg-gray-700;
 }
 .DarkblockWidget-Stack-Panel .name {
-  /* width: 250px; */
   @apply w-full;
 }
 .DarkblockWidget-App .DarkblockWidget-Stack-Panel .stack-table td {
   @apply text-gray-300 bg-gray-800;
 }
 .DarkblockWidget-App .DarkblockWidget-Footer {
-  @apply px-2 py-5 text-xs text-gray-500;
+  @apply px-2 py-5 text-xs text-white;
 }
 .DarkblockWidget-App .DarkblockWidget-Footer svg {
   @apply stroke-gray-500;
 }
 .DarkblockWidget-App .DarkblockWidget-Footer svg path {
-  @apply fill-gray-500;
+  @apply fill-white;
 }
 .upgrade-add-content {
   @apply bg-red-500;
-}
+}  */
