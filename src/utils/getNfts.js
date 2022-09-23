@@ -42,7 +42,7 @@ export const getNFTsOwned = async (address, platform, offSet) => {
         filterData = []
         collection.forEach((nft) => {
           data.data.filter((item) => {
-            if (item.contract === nft.contract && item.token === nft.id) {
+            if (item.contract === nft.contract && item.token === nft.token) {
               filterData.push(item)
             }
           })
