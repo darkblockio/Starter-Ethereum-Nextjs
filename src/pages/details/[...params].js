@@ -1,35 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import Web3 from 'web3'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import { getNFTMetadata } from '../../utils/getNfts'
 import { validateImage } from '../../utils/validateImage'
 import { dateTimeFormat } from '../../utils/dateFormatter'
 import { shortenAddr } from '../../utils/shortAddress'
 import { useRouter } from 'next/router'
-import dynamic from 'next/dynamic'
-
-const EthereumDarkblockWidget = dynamic(
-  () =>
-    import('@darkblock.io/eth-widget').then(mod => {
-      return mod.EthereumDarkblockWidget
-    }),
-  { ssr: false }
-)
-
-const cb = (state) => {
-  console.log(state) // log out unlockable process states
-}
-
-const config = {
-  customCssClass: '', // pass here a class name you plan to use
-  debug: false, // debug flag to console.log some variables
-  imgViewer: {
-    // image viewer control parameters
-    showRotationControl: true,
-    autoHideControls: true,
-    controlsFadeDelay: true,
-  },
-}
+import { Web3Context } from '../../context/Web3Context'
+import { EthWidget } from '../../components/EthWidget'
 
 const countAttribs = (nft) => {
   let count = 1
@@ -46,9 +23,8 @@ const NftDetailCard = () => {
   const contract = router.query.params ? router.query.params[0] : null
   const id       = router.query.params ? router.query.params[1] : null
   const platform = 'Ethereum'
-
   const [nftData, setNftData] = useState(null)
-  const [wallet, setWallet] = useState(null)
+  const {wallet} = useContext(Web3Context)
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
@@ -58,62 +34,17 @@ const NftDetailCard = () => {
     }
   }, [id, contract])
 
-  useEffect(() => {
-    const web3 = new Web3(window.web3.currentProvider)
-
-    const accountWasChanged = (accounts) => {
-      setWallet(null)
-
-      setTimeout(() => {
-        if (accounts[0]) {
-          setWallet(web3)
-        }
-      }, 0)
-    }
-
-    const getAndSetAccount = async () => {
-      const changedAccounts = await window.ethereum.request({
-        method: 'eth_requestAccounts'
-      })
-      setWallet(null)
-      setTimeout(() => {
-        if (changedAccounts[0]) {
-          setWallet(web3)
-        }
-      }, 0)
-    }
-
-    const clearAccount = () => {
-      setWallet(null)
-    }
-
-    window.ethereum.on('accountsChanged', accountWasChanged)
-    window.ethereum.on('connect', getAndSetAccount)
-    window.ethereum.on('disconnect', clearAccount)
-
-    async function getAccount() {
-      if (window.ethereum) {
-        const accounts = await web3.eth.getAccounts()
-        if (accounts && accounts[0]) {
-          setWallet(web3)
-        }
-      }
-    }
-
-    getAccount()
-  }, [])
-
   return (
-    <div>
+    <div className='w-auto bg-primary'>
       <Header />
-      <div className=' h-auto md:overflow-hidden text-white bg-primary'>
+      <div className='h-auto text-white md:overflow-hidden bg-primary'>
         {nftData ? (
           <div>
-            <div className='flex md:mx-20 pt-8 mx-2 md:flex-cols-2 w-96 md:w-auto sm:flex-row flex-col'>
-              <div className='md:w-1/2'>
+            <div className='flex flex-col pt-8 w-auto  md:mx-20 md:flex-cols-2  md:w-auto sm:flex-row'>
+              <div className='mx-4 md:w-1/2'>
                 {nftData && nftData.image ? (
                   <img // eslint-disable-line
-                    className='my-5 border border-gray-200 rounded-md shadow-md'
+                    className='my-5 border border-gray-200 rounded-md shadow-md md:h-66'
                     src={validateImage(nftData.image)}
                     alt='NFT'
                   />
@@ -122,29 +53,28 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className=' md:w-1/2 my-5 sm:w-full md:text-left text-center m-0'>
-                <div className='mb-10 md:mb-2 font-sans text-4xl font-bold'>
+              <div className='m-0 my-5 text-center md:w-1/2 w-auto md:text-left'>
+                <div className='mb-10 font-sans text-4xl font-bold md:mb-2'>
                   {nftData.name}
                 </div>
-                <div>{nftData.nft_description}</div>
-                <div>
+                <div className='mx-2'>{nftData.nft_description}</div>
+                <div className='mx-2'>
                   {wallet && (
-                    <EthereumDarkblockWidget
-                      contractAddress={nftData.contract}
-                      tokenId={nftData.token}
-                      w3={wallet}
-                      cb={cb} // Optional
-                      config={config}
-                    />
+                    <div className='flex justify-end  text-gray-800'>
+                      <EthWidget
+                        contract={nftData.contract}
+                        id={nftData.token}
+                        w3={wallet}
+                        upgrade={true}
+                      />
+                    </div>
                   )}
 
-                  {!wallet && (
-                    <EthereumDarkblockWidget
-                      contractAddress={nftData.contract}
-                      tokenId={nftData.token}
-                      w3={null}
-                      cb={cb} // Optional
-                      config={config}
+                  {wallet && (
+                    <EthWidget
+                      contract={nftData.contract}
+                      id={nftData.token}
+                      w3={wallet}
                     />
                   )}
                 </div>
@@ -164,15 +94,11 @@ const NftDetailCard = () => {
                       return (
                         <>
                           <div className='grid grid-cols-2 p-2 md:grid-cols-2 '>
-
-                    
-
-                            <p className='pt-1 text-xs font-bold text-left text-gray-500'>
-
+                            <p className='pt-1 text-sm font-semibold text-left text-gray-500'>
                               {i.name}
                             </p>
-                            <p className=' text-base text-right text-white'>
-                              {i.value}
+                            <p className='text-base text-right text-white '>
+                              {shortenAddr(i.value)}
                             </p>
                           </div>
                         </>
@@ -281,7 +207,7 @@ const NftDetailCard = () => {
             </div>
           </div>
         ) : (
-          <div className='h-screen mt-20 text-2xl text-center'>NFT not found</div>
+          <div className='h-screen md:mt-20 text-2xl text-center'>NFT not found</div>
         )}
       </div>
     </div>
