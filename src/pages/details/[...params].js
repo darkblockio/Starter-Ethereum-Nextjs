@@ -48,10 +48,10 @@ const NftDetailCard = () => {
           <div>
             <div className="grid grid-cols-1 gap-1 pt-8 md:grid-cols-3">
               <div className="md:pl-20">
-                <div className="mb-10 font-sans text-4xl text-center font-bold md:hidden md:mb-2">{nftData.name}</div>
+                <div className="mb-10 font-sans text-4xl font-bold text-center md:hidden md:mb-2">{nftData.name}</div>
                 {nftData && nftData.image ? (
                   <img // eslint-disable-line
-                    className="mx-auto my-5 rounded-md h-66 px-4"
+                    className="px-4 mx-auto my-5 rounded-md h-66"
                     src={validateImage(nftData.image)}
                     alt="NFT"
                   />
@@ -60,7 +60,7 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className="max-w-4xl px-4 mx-auto md:col-span-2">
+              <div className="w-full max-w-4xl px-4 mx-auto md:col-span-2">
                 <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-2">{nftData.name}</div>
                 <div className="pt-2 mx-2">{nftData.nft_description}</div>
                 <div className="mx-2">
