@@ -130,7 +130,7 @@ export default function Home() {
           </button>
         )}
         {myNfts?.length === 0 && showNfts === "darkblockeds" && (
-          <div className="w-full h-full m-auto text-xl text-center text-white">
+          <div className="w-full h-screen m-auto text-xl text-center text-white">
             {`Oops, looks like you don't have any matching NFTs in this wallet.`}
           </div>
         )}
