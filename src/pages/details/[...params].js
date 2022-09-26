@@ -39,7 +39,7 @@ const NftDetailCard = () => {
   }, [id, contract])
 
   return (
-    <div className='w-auto bg-primary'>
+    <div>
       <Header />
       <div className='h-auto text-white md:overflow-hidden bg-primary'>
         {
