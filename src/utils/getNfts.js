@@ -36,7 +36,7 @@ export const getNFTsOwned = async (address, platform, offSet) => {
       let filterData
       if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
         filterData = data.data.filter((item) => {
-          return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase()
+          return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
         })
       } else {
         filterData = []
