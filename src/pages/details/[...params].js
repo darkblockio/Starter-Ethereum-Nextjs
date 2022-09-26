@@ -39,19 +39,19 @@ const NftDetailCard = () => {
   }, [id, contract])
 
   return (
-    <div className="w-auto bg-primary">
+    <div>
       <Header />
       <div className="h-auto text-white md:overflow-hidden bg-primary">
         {isLoading ? (
           <Loading />
         ) : nftData ? (
           <div>
-            <div className="grid grid-cols-1 gap-4 pt-8 md:grid-cols-3">
-              <div className="pl-8">
-                <div className="mb-10 font-sans text-4xl font-bold md:hidden md:mb-2">{nftData.name}</div>
+            <div className="grid grid-cols-1 gap-1 pt-8 md:grid-cols-3">
+              <div className="md:pl-20">
+                <div className="mb-10 font-sans text-4xl text-center font-bold md:hidden md:mb-2">{nftData.name}</div>
                 {nftData && nftData.image ? (
                   <img // eslint-disable-line
-                    className="mx-auto my-5 rounded-md h-66"
+                    className="mx-auto my-5 rounded-md h-66 px-4"
                     src={validateImage(nftData.image)}
                     alt="NFT"
                   />
