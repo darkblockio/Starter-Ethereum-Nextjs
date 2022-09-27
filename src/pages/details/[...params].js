@@ -41,7 +41,7 @@ const NftDetailCard = () => {
   return (
     <div>
       <Header />
-      <div className="h-auto text-white md:overflow-hidden bg-primary">
+      <div className="h-auto text-fontColor md:overflow-hidden bg-primary">
         {isLoading ? (
           <Loading />
         ) : nftData ? (
@@ -60,12 +60,14 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-              <div className="w-full max-w-4xl px-4 mx-auto md:col-span-2">
-                <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-2">{nftData.name}</div>
+
+              <div className="w-full max-w-4xl mx-auto md:col-span-2">
+                <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-3">{nftData.name}</div>
                 <div className="pt-2 mx-2">{nftData.nft_description}</div>
-                <div className="mx-2">
+                <div className="mx-4 md:mr-2">
+
                   {
-                    <div className="flex justify-end py-3">
+                    <div className="flex justify-end pb-4">
                       <EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} upgrade={true} />
                     </div>
                   }
@@ -88,7 +90,7 @@ const NftDetailCard = () => {
                       {nftData.traits?.map((i) => (
                         <div key={i.value} className="grid grid-cols-2 p-2 md:grid-cols-2 ">
                           <p className="pt-1 text-sm font-semibold text-left text-gray-500">{i.name}</p>
-                          <p className="text-base text-right text-white ">{shortenAddr(i.value)}</p>
+                          <p className="text-base text-right text-fontColor ">{shortenAddr(i.value)}</p>
                         </div>
                       ))}
                     </div>

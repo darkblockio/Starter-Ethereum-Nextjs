@@ -94,7 +94,7 @@ export default function Home() {
       <div>
         <div className="flex flex-col items-center w-auto pt-8 ml-8 text-center md:px-10 md:flex-row md:w-auto">
           <span // eslint-disable-line
-            className={` hover:border-b-2 bg-secondary text-white pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
+            className={` hover:border-b-2 bg-secondary text-fontColor pb-2 px-4 py-1 rounded mr-8 cursor-pointer ${
               showNfts === "created"
                 ? "border-b-2 border-black"
                 : "text-gray-300"
@@ -104,7 +104,7 @@ export default function Home() {
             NFTs Created
           </span>
           <span // eslint-disable-line
-            className={`hover:border-b-2 bg-secondary text-white pb-2 px-4 md:mt-0 mt-5 py-1 rounded mr-8 cursor-pointer ${
+            className={`hover:border-b-2 bg-secondary text-fontColor pb-2 px-4 md:mt-0 mt-5 py-1 rounded mr-8 cursor-pointer ${
               showNfts === "darkblockeds"
                 ? "border-b-2 border-black"
                 : "text-gray-300"
@@ -124,13 +124,13 @@ export default function Home() {
         {HasMoreNfts && showNfts === "created" && (
           <button
             onClick={getData}
-            className="flex justify-center p-2 m-auto font-semibold bg-white bg-gray-200 rounded "
+            className="flex justify-center p-2 m-auto font-semibold bg-fontColor bg-gray-200 rounded "
           >
             Load More
           </button>
         )}
         {myNfts?.length === 0 && showNfts === "darkblockeds" && (
-          <div className="w-full h-screen m-auto text-xl text-center text-white">
+          <div className="w-full h-screen m-auto text-xl text-center text-fontColor">
             {`Oops, looks like you don't have any matching NFTs in this wallet.`}
           </div>
         )}
