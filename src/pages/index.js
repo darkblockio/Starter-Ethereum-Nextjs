@@ -88,6 +88,7 @@ export default function Home() {
           </span>
           <span // eslint-disable-line
             className={`hover:border-b-2 bg-secondary text-fontColor pb-2 px-4 md:mt-0 mt-5 py-1 rounded mr-8 cursor-pointer ${
+
               showNfts === 'darkblockeds' ? 'border-b-2 border-black' : 'text-gray-300'
             }`}
             onClick={() => setShowNfts('darkblockeds')}
@@ -110,7 +111,8 @@ export default function Home() {
             Load More
           </button>
         )}
-        {myNfts?.length === 0 && showNfts === 'darkblockeds' && (
+
+        {myNfts?.length === 0 && showNfts === "darkblockeds" && (
           <div className="w-full h-screen m-auto text-xl text-center text-fontColor">
             {`Oops, looks like you don't have any matching NFTs in this wallet.`}
           </div>
