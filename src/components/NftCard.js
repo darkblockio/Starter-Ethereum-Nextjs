@@ -17,7 +17,7 @@ const NftCard = ({ nft }) => {
             />
           </div>
           <div className="w-full p-3 text-left h-28">
-            <h2 className="text-lg font-semibold leading-5 text-white text-center truncate whitespace-nowrap">
+            <h2 className="text-lg font-semibold leading-5 text-fontColor text-center truncate whitespace-nowrap">
               {name}
             </h2>
             { is_darkblocked ? (
@@ -27,13 +27,13 @@ const NftCard = ({ nft }) => {
                   className="h-5"
                   src="/footericon-blk.svg"
                 ></img>
-                <div className='pl-2 font-semibold text-white text-sm align-middle'>
+                <div className='pl-2 font-semibold text-fontColor text-sm align-middle'>
                   Unlockable Content
                 </div>
               </div>
             ) : <div className='h-5'></div>}
           </div>
-          <div className='absolute bottom-0 hidden w-full py-2 font-medium text-white cursor-pointer group-hover:block bg-terciary rounded-b-xl'>
+          <div className='absolute bottom-0 hidden w-full py-2 font-medium text-fontColor cursor-pointer group-hover:block bg-terciary rounded-b-xl'>
             Details
           </div>
         </div>
