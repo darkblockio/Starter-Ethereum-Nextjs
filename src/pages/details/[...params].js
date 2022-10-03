@@ -67,7 +67,8 @@ const NftDetailCard = () => {
                 <div className="mx-4 md:mr-2">
 
                   {
-                    <div className="flex justify-end pb-4">
+                    //Be sure to leave font color dark, NPM brings a white background
+                    <div className="flex justify-end pb-4 text-gray-800">
                       <EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} upgrade={true} />
                     </div>
                   }
