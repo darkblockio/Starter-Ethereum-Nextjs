@@ -50,6 +50,11 @@ const Header = () => {
             />
           </Link>
         </div>
+        <div className="flex flex-auto items-center">
+          <div className='text-fontColor text-4xl '>
+            Ethereum Gallery
+          </div>
+        </div>
         <div className="flex items-center space-x-2">
           <div className="block ml-2 "></div>
           <div className="items-center justify-end space-x-4 md:inline-flex">
