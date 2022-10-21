@@ -2,9 +2,10 @@ import { collection } from './collection'
 import { filter } from './filter'
 
 const baseApi = process.env.NEXT_PUBLIC_BASE_API ? process.env.NEXT_PUBLIC_BASE_API : 'https://api.darkblock.io/v1/'
+const useWalletAddress = false //true if you want to see nfts of your wallet, false if you want to use JSON file of a collection
 
 export const getNFTs = async (address, platform, offset = 0) => {
-  const pageSize = 48
+  const pageSize = 48 // Amount of nfts you want to see in the page
   return await fetch(
     `${baseApi}/nfts/created?platform=${platform}&account=${address}&offset=${offset}&page_size=${pageSize}`
   )
@@ -28,7 +29,7 @@ export const getNFTs = async (address, platform, offset = 0) => {
 }
 
 export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) => {
-  const pageSize = 48
+  const pageSize = 48 // Amount of nfts you want to see in the page
   return await fetch(
     `${baseApi}/nfts/collected?platform=${platform}&account=${address}&offset=${offSet}&page_size=${pageSize}`
   )
@@ -37,10 +38,8 @@ export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) 
       let filterData
       if (data.data) {
         //handle wallet without nfts exception
-        if (process.env.NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS === 'true') {
+        if (useWalletAddress === 'true') {
           filterData = filter(arrayOfNfts, data)
-          // return item.all_owners[0].toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
-          //return item.creator_address.toLowerCase() === process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS.toLowerCase() //for now we use all_owners because creator_address is null
         } else {
           filterData = filter(collection, data)
         }

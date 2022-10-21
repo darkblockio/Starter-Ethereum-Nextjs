@@ -13,7 +13,6 @@ export default function Home() {
   const [offset, setOffset] = useState(0)
   const [offsetMyNfts, setOffsetMyNfts] = useState(0)
   const [HasMoreNfts, setHasMoreNfts] = useState(false)
-  const [HasMoreMyNfts, setHasMoreMyNfts] = useState(false)
   const [showNfts, setShowNfts] = useState('created')
   const [arrayOfNfts, setArrayOfNfts] = useState([])
   const [isLoaded, setIsLoaded] = useState(true)
@@ -40,7 +39,6 @@ export default function Home() {
       }
       setMyNfts(allNfts)
       setOffsetMyNfts(nfts.nfts.next_offset)
-      setHasMoreMyNfts(nfts.nfts.has_more)
       setIsLoaded(true)
     })
   }
@@ -88,7 +86,6 @@ export default function Home() {
           </span>
           <span // eslint-disable-line
             className={`hover:border-b-2 bg-secondary text-fontColor pb-2 px-4 md:mt-0 mt-5 py-1 rounded mr-8 cursor-pointer ${
-
               showNfts === 'darkblockeds' ? 'border-b-2 border-black' : 'text-gray-300'
             }`}
             onClick={() => setShowNfts('darkblockeds')}
@@ -96,6 +93,7 @@ export default function Home() {
             My Filtered NFTs
           </span>
         </div>
+
         {isLoaded ? (
           <div className="grid gap-3 px-4 pt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
             {renderNFTs()}
@@ -103,6 +101,8 @@ export default function Home() {
         ) : (
           <Loading />
         )}
+
+        {/* load More button if you want to get more nfts of your wallet*/}
         {HasMoreNfts && showNfts === 'created' && (
           <button
             onClick={getData}
@@ -112,7 +112,8 @@ export default function Home() {
           </button>
         )}
 
-        {myNfts?.length === 0 && showNfts === "darkblockeds" && (
+        {/* You will see your nfts that matchs with the collection */}
+        {myNfts?.length === 0 && showNfts === 'darkblockeds' && (
           <div className="w-full h-screen m-auto text-xl text-center text-fontColor">
             {`Oops, looks like you don't have any matching NFTs in this wallet.`}
           </div>

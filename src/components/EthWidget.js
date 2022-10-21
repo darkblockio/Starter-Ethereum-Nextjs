@@ -17,9 +17,7 @@ const EthUpgradeWidget = dynamic(
   { ssr: false }
 )
 
-const cb = (param1) => {
-  // console.log('ethwidget cb', param1)
-}
+const cb = (param1) => {}
 
 const config = {
   customCssClass: '', // pass here a class name you plan to use
@@ -33,7 +31,6 @@ const config = {
 }
 
 const cbUpgrade = (param1) => {
-  // console.log('eth upgrade cb', param1)
   if (param1 === 'upload_complete') {
     Router.reload()
   }

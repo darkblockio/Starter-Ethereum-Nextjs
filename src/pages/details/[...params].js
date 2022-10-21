@@ -18,12 +18,13 @@ const countAttribs = (nft) => {
   if (nft.nft_date_created) count++
   return count
 }
+// Select the chain you want to use
+const platform = 'Ethereum'
 
 const NftDetailCard = () => {
   const router = useRouter()
   const contract = router.query.params ? router.query.params[0] : null
   const id = router.query.params ? router.query.params[1] : null
-  const platform = 'Ethereum'
   const [nftData, setNftData] = useState(null)
   const { wallet } = useContext(Web3Context)
   const [isLoading, setIsLoading] = useState(false)
@@ -60,12 +61,17 @@ const NftDetailCard = () => {
                 )}
               </div>
 
-
               <div className="w-full max-w-4xl mx-auto md:col-span-2">
                 <div className="hidden mb-10 font-sans text-4xl font-bold md:block md:mb-3">{nftData.name}</div>
                 <div className="pt-2 mx-2">{nftData.nft_description}</div>
                 <div className="mx-4 md:mr-2">
-
+                  {/* Setup the Darkblock Ethereum Widget
+                   * For more information visit https://www.npmjs.com/package/@darkblock.io/eth-widget
+                   * @param {contract}
+                   * @param {id}
+                   * @param {w3}
+                   * @param {upgrader} optional
+                   */}
                   {
                     //Be sure to leave font color dark, NPM brings a white background
                     <div className="flex justify-end pb-4 text-gray-800">
@@ -73,12 +79,12 @@ const NftDetailCard = () => {
                     </div>
                   }
 
-                  {<EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} />}
+                  <EthWidget contract={nftData.contract} id={nftData.token} w3={wallet} />
                 </div>
               </div>
             </div>
             <div>
-              <div className="grid w-full md:grid-cols-3 gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7">
+              <div className="grid w-full gap-4 px-4 py-12 mt-12 border-t-[1px] md:grid-cols-3 md:px-7">
                 {nftData.traits && (
                   <div className="flex flex-col pb-2">
                     <div className="flex flex-row mb-2">
