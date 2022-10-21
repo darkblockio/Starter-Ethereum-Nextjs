@@ -94,10 +94,10 @@ const NftDetailCard = () => {
                       </div>
                     </div>
                     <div className="border border-gray-200 rounded-md">
-                      {nftData.traits?.map((i) => (
-                        <div key={i.value} className="grid grid-cols-2 p-2 md:grid-cols-2 ">
-                          <p className="pt-1 text-sm font-semibold text-left text-gray-500">{i.name}</p>
-                          <p className="text-base text-right text-fontColor ">{shortenAddr(i.value)}</p>
+                      {nftData.traits?.map((trait, index) => (
+                        <div key={index} className="grid grid-cols-2 p-2 md:grid-cols-2 ">
+                          <p className="pt-1 text-sm font-semibold text-left text-gray-500">{trait.name}</p>
+                          <p className="text-base text-right text-fontColor ">{shortenAddr(trait.value)}</p>
                         </div>
                       ))}
                     </div>

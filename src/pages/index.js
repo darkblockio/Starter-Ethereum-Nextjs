@@ -64,7 +64,7 @@ export default function Home() {
           myNfts &&
           myNfts.length > 0 &&
           myNfts[0] !== undefined &&
-          myNfts.map((nft) => <NftCard key={nft.token} nft={nft} />)
+          myNfts.map((nft, index) => <NftCard key={index} nft={nft} />)
         )
       case 'created':
         return arrayOfNfts && arrayOfNfts !== [] && arrayOfNfts.map((nft) => <NftCard key={nft.token} nft={nft} />)
