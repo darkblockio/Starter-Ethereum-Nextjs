@@ -28,7 +28,7 @@ npm install or yarn install
 
 <h2>How do you run your site locally?</h2>
 <ol>
-<li>In the command line, cd into the directory that you created. 
+<li>In the command line, cd into the directory that you created.
 <h3>Ex.</h3>
 <br>
 
@@ -58,8 +58,10 @@ npm run dev
 ```
 // this is the default address with NFTs you want to see as a gallery
 NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS = YourDefaultAddresHere
+
 // <true> if you want to use a wallet address, <false> if you want to use the Json object
 NEXT_PUBLIC_REACT_APP_USE_WALLET_ADDRESS = true
+
 NEXT_PUBLIC_REACT_APP_API_KEY = yourApikey
 ```
 
