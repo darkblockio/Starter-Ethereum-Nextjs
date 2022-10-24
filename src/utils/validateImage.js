@@ -6,6 +6,6 @@ export const validateImage = (urlImage) => {
 }
 
 export const isImageType = (urlImage) => {
-  const test = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(urlImage)
+  const test = /\.(jpg|jpeg|png|webp|avif|gif|svg|glb)$/.test(urlImage)
   return test
 }

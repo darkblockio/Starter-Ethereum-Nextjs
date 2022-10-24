@@ -73,6 +73,14 @@ export const getNFTsOwned = async (address, platform, offSet, arrayOfNfts = []) 
     })
 }
 
+/**
+ * Get metadata from a NFT
+ * Returns an object with the NFT metadata information
+ *
+ * @param {contract} x The contract address
+ * @param {id} The token of the contract
+ * @return {platform} Could be Polygon, Ethereum, Avalanche, Solana
+ */
 export const getNFTMetadata = async (contract, id, platform) => {
   return await fetch(`${baseApi}/nft/metadata?platform=${platform}&contract=${contract}&token=${id}`)
     .then((response) => response.json())
