@@ -38,7 +38,7 @@ const Header = () => {
   }
 
   return (
-    <header className="absolute sticky top-0 z-50 flex flex-col items-center justify-center h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary w-auto">
+    <header className="sticky top-0 z-50 flex flex-col items-center justify-center w-auto h-20 px-8 border-b md:flex md:flex-row bg-primary border-secondary">
       <nav className="flex items-center justify-center w-full">
         <div className="flex items-center flex-auto">
           <div className="flex items-center "></div>
@@ -50,8 +50,8 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="flex flex-auto items-center">
-          <div className='text-fontColor text-4xl '>
+        <div className="items-center flex-auto hidden md:block">
+          <div className='text-4xl text-fontColor '>
             Ethereum Gallery
           </div>
         </div>
@@ -59,7 +59,7 @@ const Header = () => {
           <div className="block ml-2 "></div>
           <div className="items-center justify-end space-x-4 md:inline-flex">
             <button
-              className="h-12 px-4 py-2 text-base text-fontColor border rounded bg-primary border-terciary hover:border-fontColor"
+              className="h-12 px-4 py-2 text-base border rounded text-fontColor bg-primary border-terciary hover:border-fontColor"
               onClick={() => connect()}
             >
               {address && address !== '' ? shortenAddr(address) : 'Connect Wallet'}

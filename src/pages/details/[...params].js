@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import { getNFTMetadata } from '../../utils/getNfts'
-import { validateImage } from '../../utils/validateImage'
+import { isImageType, validateImage } from '../../utils/validateImage'
 import { dateTimeFormat } from '../../utils/dateFormatter'
 import { shortenAddr } from '../../utils/shortAddress'
 import { useRouter } from 'next/router'
@@ -28,16 +28,31 @@ const NftDetailCard = () => {
   const [nftData, setNftData] = useState(null)
   const { wallet } = useContext(Web3Context)
   const [isLoading, setIsLoading] = useState(false)
+  const [creators, setCreators] = useState([])
 
   useEffect(() => {
     if (id && contract && id !== undefined && contract !== undefined) {
       setIsLoading(true)
-      getNFTMetadata(contract, id, `${platform}`).then((data) => {
+      getNFTMetadata(contract, id, platform).then((data) => {
         setNftData(data.nft)
         setIsLoading(false)
       })
     }
   }, [id, contract])
+
+  useEffect(() => {
+    if ((!creators || creators.length < 1) && nftData != null && nftData.creator_address) {
+      setCreators([nftData.creator_address])
+    }
+  }, [nftData])
+
+  const shortPlatforms = {
+    Ethereum: `eth`,
+    Polygon: `matic`,
+    Avalanche: `avax`,
+    Solana: `sol`,
+    Tezos: `tez`,
+  }
 
   return (
     <div>
@@ -192,14 +207,20 @@ const NftDetailCard = () => {
                     <div className="flex pb-2 mt-2">
                       <h2 className="font-bold ">Created by</h2>
                       <div className="px-2 py-1 ml-2 text-xs font-semibold text-gray-700 bg-gray-200 rounded">
-                        {nftData.creators?.length ? nftData.creators.length : 1}
+                        {creators.length ? creators.length : 0}
                       </div>
                     </div>
-                    {nftData.creator_address && (
-                      <p className="p-3 font-medium text-center text-gray-500 border border-gray-100 rounded">
-                        {shortenAddr(nftData.creator_address)}
-                      </p>
-                    )}
+                    {creators?.map((item, i) => (
+                      <a
+                        className="pb-2 font-medium underline truncate"
+                        key={i}
+                        href={`https://app.darkblock.io/platform/${shortPlatforms[platform]}/${item}`}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        <p>{shortenAddr(item)}</p>
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
