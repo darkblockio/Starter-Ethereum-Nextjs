@@ -19,7 +19,7 @@ export default function Home() {
   const { address } = useContext(Web3Context)
 
   const getData = async () => {
-    await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, 'Ethereum', offset).then((res) => {
+    await getNFTs(process.env.NEXT_PUBLIC_REACT_APP_WALLET_ADDRESS, platform, offset).then((res) => {
       setIsLoaded(false)
       setArrayOfNfts(res.nfts.data)
       setOffset(res.next_offset)
@@ -106,7 +106,7 @@ export default function Home() {
         {HasMoreNfts && showNfts === 'created' && (
           <button
             onClick={getData}
-            className="flex justify-center p-2 m-auto font-semibold bg-fontColor bg-gray-200 rounded "
+            className="flex justify-center p-2 m-auto font-semibold rounded bg-fontColor "
           >
             Load More
           </button>
