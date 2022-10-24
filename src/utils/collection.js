@@ -1,5 +1,5 @@
-// Put a nft collection into the array to show in the gallery page.
 
+// Put a nft collection into the array to show in the gallery page.
 export const collection = [
   {
     name: 'Tomodachi Key',
