@@ -14,6 +14,9 @@ const NftCard = ({ nft }) => {
               loading={'lazy'}
               alt={image}
               src={image}
+              onError={e => {
+                e.target.src = '/images/broken.png'
+              }}
             />
           </div>
           <div className="w-full p-3 text-left h-28">

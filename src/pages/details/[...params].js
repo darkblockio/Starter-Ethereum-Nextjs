@@ -54,6 +54,9 @@ const NftDetailCard = () => {
                     className="px-4 mx-auto my-5 rounded-md h-66"
                     src={validateImage(nftData.image)}
                     alt="NFT"
+                    onError={e => {
+                      e.target.src = '/images/broken.png'
+                    }}
                   />
                 ) : (
                   <></>
