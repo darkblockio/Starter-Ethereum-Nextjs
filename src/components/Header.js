@@ -19,7 +19,7 @@ const Header = () => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       try {
-        const isCorrect = await checkNetwork();
+        const isCorrect = await checkNetwork(targetNetworkId);
         if (!isCorrect) switchNetwork(targetNetworkId);
         if (window.web3._provider._state.isConnected) {
           await window.ethereum.request({

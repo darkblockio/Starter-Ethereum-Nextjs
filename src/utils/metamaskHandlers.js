@@ -1,4 +1,4 @@
-export const checkNetwork = async () => {
+export const checkNetwork = async (targetNetworkId) => {
   if (window.ethereum) {
     const currentChainId = await window.ethereum.request({
       method: "eth_chainId",
