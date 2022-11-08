@@ -50,7 +50,6 @@ const Header = () => {
     const accounts = await web3.eth.getAccounts();
     if (accounts && accounts[0]) {
       setAddress(accounts[0]);
-      console.log({ account: address });
     }
   };
 
